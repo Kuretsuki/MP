@@ -1,4 +1,3 @@
-
 import os
 
 TILE_EMOJIS = {
@@ -7,7 +6,7 @@ TILE_EMOJIS = {
     "+": "🍄",  # mushroom
     "R": "🪨",  # rock
     "~": "💧",  # water
-    "-": "⬛",  # paved
+    "-": "⬜",  # paved
     "x": "🪓",  # axe
     "*": "🔥",  # flamethrower
     "L": "🧑",  # Laro Craft (player)
@@ -58,30 +57,45 @@ def implement_game(filename): # updating map for each move ni user
         "S":(1, 0), 
         "D":(0, 1)
     }
-
+    clear()
     current_loc = finding_L(mapp(filename))
     grid = [list(row) for row in mapp(filename)]
     first_display = ["".join(row) for row in grid]
-    print(load_mapp(first_display))
-
+    mushrooms = mushroom_counter(mapp(filename))
+    current_mush = 0
+    load_mapp(first_display)
     while True:
+        print(f"{current_mush} out of {mushrooms} mushroom(s) collected")
+        print()
+        print("[W] Move up")
+        print("[A] Move left")
+        print("[S] Move down")
+        print("[D] Move right")
+        print("[!] Reset")
+        print()
         movement = input("What is your next move?: ").upper()
+        if movement not in directions:
+            clear()
+            partial_res = ["".join(row) for row in grid]
+            load_mapp(partial_res)
+            print("Invalid move! Use W/A/S/D/P/!.")
+            continue
         x = current_loc[0]
         y = current_loc[1]
         i, j = directions[movement]
-        if 0 < x + i < len(grid) and 0 < y + j < len(grid[0]):
-            current_mush = 0
+        if 0 <= x + i <= len(grid) and 0 <= y + j <= len(grid[0]):  
             if grid[x + i][y + j] == ".": # if puwede daanan
                 grid[x + i][y + j] = "L"
                 grid[x][y] = "."
                 current_loc = (x + i, y + j) 
                 partial_res = ["".join(row) for row in grid]
                 clear()
-                print(load_mapp(partial_res))
+                load_mapp(partial_res)
 
             elif grid[x + i][y + j] == "T":
                 clear()
-                print(load_mapp(partial_res))
+                partial_res = ["".join(row) for row in grid]
+                load_mapp(partial_res)
             elif grid[x + i][y + j] == "R":
                 if grid[x + 2*i][y + 2*j] ==".":
                     grid[x + 2*i][y + 2*j] = "R"
@@ -101,10 +115,10 @@ def implement_game(filename): # updating map for each move ni user
                 else:
                     partial_res = ["".join(row) for row in grid]
                     clear()
-                    print(load_mapp(partial_res))
+                    load_mapp(partial_res)
                 partial_res = ["".join(row) for row in grid]
                 clear()
-                print(load_mapp(partial_res))
+                load_mapp(partial_res)
 
             elif grid[x + i][y + j] == "-":
                 grid[x + i][y + j] = "L"
@@ -112,33 +126,34 @@ def implement_game(filename): # updating map for each move ni user
                 current_loc = (x + i, y + j)
                 partial_res = ["".join(row) for row in grid]
                 clear()
-                print(load_mapp(partial_res))
+                load_mapp(partial_res)
 
             elif grid[x + i][y + j] == "+":
-                mushrooms = mushroom_counter(mapp(filename))
                 current_mush += 1
                 grid[x + i][y + j] = "L"
                 grid[x][y] = "."
                 current_loc = (x + i, y + j)
                 partial_res = ["".join(row) for row in grid]
                 clear()
-                print(load_mapp(partial_res))
+                load_mapp(partial_res)
 
                 if current_mush == mushrooms:
                     partial_res = ["".join(row) for row in grid]
                     clear()
                     print("You Win!")
+                    print(f"You collected all {mushrooms} mushrooms! 🍄🏆")
                     break
 
             elif grid[x + i][y + j] == "~":
                 grid[x + i][y + j] = "L"
+                grid[x][y] = "."
                 clear()
-                print(load_mapp(partial_res))
+                load_mapp(partial_res)
                 print("You fell in the water!")
+                break
 
 
                     
-    
 
-
-print(implement_game("testmap.txt"))
+if __name__ == "__main__":
+    implement_game("testmap.txt")
