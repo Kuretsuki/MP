@@ -66,6 +66,14 @@ def finding_items(tups):
                 fire.append((i ,j))
     return (axe, fire)
 
+def burn_trees(grid, x, y):
+    if not (0 <= x < len(grid) and 0 <= y < len(grid[0])):
+        return
+    if grid[x][y] != "T":
+        return
+    grid[x][y] = "." # burned trees turns to empty
+    for dx, dy in [(-1,0),(1,0),(0,-1),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]:
+        burn_trees(grid, x + dx, y + dy)
 
 
 def implement_game(filename): # updating map for each move ni user
@@ -105,7 +113,7 @@ def implement_game(filename): # updating map for each move ni user
         else:
             print(f"There is no item here.")
         
-        print("Not holding anything." if held_items == "" else f"Currently holding {TILE_EMOJIS[held_items]}")
+        print("Not holding anything." if held_items is None else f"Currently holding {TILE_EMOJIS.get(held_items, held_items)}")
 
 
 
@@ -123,13 +131,14 @@ def implement_game(filename): # updating map for each move ni user
 
 
         if movement == "P":
-            if grid[x + i][y + j] in ["*", "x"]:  # if may item sa pinuntahang tile
-                previous_loc
-                if held_items == None:
-                    held_items = TILE_EMOJIS[grid[x + i][y + j]]
-                    print("You picked up an item!")
+            if previous_loc in ["*", "x"]:  # if may item sa pinuntahang tile
+                if held_items:
+                    print(f"You are already holding an {TILE_EMOJIS.get(held_items, held_items)}!")
                 else:
-                    print("You are already holding an item!")
+                    held_items = previous_loc
+                    previous_loc = "."
+                    print(f"You picked up an {TILE_EMOJIS.get(held_items, held_items)}!")
+                    
             grid[x][y] = "."  
             grid[x + i][y + j] = "L"
             current_loc = (x + i, y + j)
@@ -137,67 +146,82 @@ def implement_game(filename): # updating map for each move ni user
 
             clear()
             load_mapp(partial_res)
-        else:
-            if 0 < x + i < len(grid) and 0 < y + j < len(grid[0]):
-                if grid[x + i][y + j] in [".", "_", "*", "x"]: # if puwede daanan
-                    grid[x][y] = previous_loc
-                    previous_loc = grid[x + i][y + j]
-                    grid[x + i][y + j] = "L"
-                    current_loc = (x + i, y + j) 
-                    partial_res = ["".join(row) for row in grid]
-                    clear()
-                    load_mapp(partial_res)
-                elif grid[x + i][y + j] == "T": # if tree
-                    clear()
-                    load_mapp(partial_res)
-                elif grid[x + i][y + j] == "R": # if rock
-                    if grid[x + 2*i][y + 2*j] ==".":
-                        grid[x + 2*i][y + 2*j] = "R"
-                        grid[x + i][y + j] = "L"
-                        grid[x][y] = "."
-                        current_loc = (x + i, y + j)
-                    elif grid[x + 2*i][y + 2*j] == "~":
-                        grid[x + 2*i][y + 2*j] = "_"
-                        grid[x + i][y + j] = "L"
-                        grid[x][y] = "."
-                        current_loc = (x + i, y + j)
-                    elif grid[x + 2*i][y + 2*j] == "_":
-                        grid[x + 2*i][y + 2*j] = "R"
-                        grid[x + i][y + j] = "L"
-                        grid[x][y] = "."
-                        current_loc = (x + i, y + j)
+
+        if 0 <= x + i < len(grid) and 0 <= y + j < len(grid[0]):
+            if grid[x + i][y + j] in [".", "_", "*", "x", "T"]: # if puwede daanan
+                if grid[x + i][y + j] == "T": # if tree
+                    if held_items == "x":
+                        grid[x + i][y + j] = "."
+                        held_items = None
+                    elif held_items == "*":
+                        burn_trees(grid, x + i, y + j )
+                        held_items = None
                     else:
-                        partial_res = ["".join(row) for row in grid]
                         clear()
+                        partial_res = ["".join(row) for row in grid]
                         load_mapp(partial_res)
-                    partial_res = ["".join(row) for row in grid]
-                    clear()
-                    load_mapp(partial_res)
+                        continue
+                        
 
-                elif grid[x + i][y + j] == "+":
-                    current_mush += 1
+
+                grid[x][y] = previous_loc
+                previous_loc = grid[x + i][y + j]
+                grid[x + i][y + j] = "L"
+                current_loc = (x + i, y + j) 
+                partial_res = ["".join(row) for row in grid]
+                clear()
+                load_mapp(partial_res)
+            
+                clear()
+                load_mapp(partial_res)
+            elif grid[x + i][y + j] == "R": # if rock
+                if grid[x + 2*i][y + 2*j] ==".":
+                    grid[x + 2*i][y + 2*j] = "R"
                     grid[x + i][y + j] = "L"
                     grid[x][y] = "."
                     current_loc = (x + i, y + j)
-                    partial_res = ["".join(row) for row in grid]
-                    clear()
-                    load_mapp(partial_res)
-
-                    if current_mush == mushrooms:
-                        partial_res = ["".join(row) for row in grid]
-                        clear()
-                        print("You Win!")
-                        break
-
-                elif grid[x + i][y + j] == "~":
+                elif grid[x + 2*i][y + 2*j] == "~":
+                    grid[x + 2*i][y + 2*j] = "_"
                     grid[x + i][y + j] = "L"
                     grid[x][y] = "."
                     current_loc = (x + i, y + j)
+                elif grid[x + 2*i][y + 2*j] == "_":
+                    grid[x + 2*i][y + 2*j] = "R"
+                    grid[x + i][y + j] = "L"
+                    grid[x][y] = "."
+                    current_loc = (x + i, y + j)
+                else:
                     partial_res = ["".join(row) for row in grid]
                     clear()
                     load_mapp(partial_res)
-                    print("You fell in the water!")
+                partial_res = ["".join(row) for row in grid]
+                clear()
+                load_mapp(partial_res)
+
+            elif grid[x + i][y + j] == "+":
+                current_mush += 1
+                grid[x + i][y + j] = "L"
+                grid[x][y] = "."
+                current_loc = (x + i, y + j)
+                partial_res = ["".join(row) for row in grid]
+                clear()
+                load_mapp(partial_res)
+
+                if current_mush == mushrooms:
+                    partial_res = ["".join(row) for row in grid]
+                    clear()
+                    print("You Win!")
                     break
+
+            elif grid[x + i][y + j] == "~":
+                grid[x + i][y + j] = "L"
+                grid[x][y] = "."
+                current_loc = (x + i, y + j)
+                partial_res = ["".join(row) for row in grid]
+                clear()
+                load_mapp(partial_res)
+                print("You fell in the water!")
+                break
 
 
                         
