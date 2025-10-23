@@ -86,6 +86,7 @@ def implement_game(filename): # updating map for each move ni user
     }
 
     clear()
+    pick_up_message = ""
     held_items = None
     previous_loc = "."
     current_loc = finding_L(mapp(filename))
@@ -106,14 +107,29 @@ def implement_game(filename): # updating map for each move ni user
         print("[D] Move right")
         print("[!] Reset")
         print()
-        if current_loc in axes_loc:
-            print(f"There is an axe available for pickup!")
-        elif current_loc in fires_loc:
-            print(f"There is a flamethrower available for pickup!")
-        else:
-            print(f"There is no item here.")
         
-        print("Not holding anything." if held_items is None else f"Currently holding {TILE_EMOJIS.get(held_items, held_items)}")
+        if pick_up_message:  
+            print(pick_up_message)
+            pick_up_message = ""
+        else:
+            if current_loc in axes_loc:
+                if not held_items:
+                    print("There is an axe available for pickup!")
+                else:
+                    print("This item is unavailable for pickup.")
+            elif current_loc in fires_loc:
+                if not held_items:
+                    print("There is a flamethrower available for pickup!")
+                else:
+                    print("This item is currently uavailable for pickup.")
+            else:
+                print("There is no item here.")
+
+
+        if held_items == None:
+            print("Currently not holding anything.")
+        else:
+            print(f"Currently holding {TILE_EMOJIS[held_items]}")
 
 
 
@@ -131,21 +147,26 @@ def implement_game(filename): # updating map for each move ni user
 
 
         if movement == "P":
-            if previous_loc in ["*", "x"]:  # if may item sa pinuntahang tile
-                if held_items:
-                    print(f"You are already holding an {TILE_EMOJIS.get(held_items, held_items)}!")
-                else:
-                    held_items = previous_loc
-                    previous_loc = "."
-                    print(f"You picked up an {TILE_EMOJIS.get(held_items, held_items)}!")
+            clear()
+            if previous_loc in ["*", "x"] and not held_items:  # if may item sa pinuntahang tile
+                axes_loc.remove(current_loc) if previous_loc == "x" else fires_loc.remove(current_loc)
+                held_items = previous_loc
+                pick_up_message = "You picked up a flamethrower!" if previous_loc == "*" else "You picked up an axe!"
+                previous_loc = "."
+            elif previous_loc not in ["*", "x"]:
+                pick_up_message = "There is no item to be picked up!"
+
+            else:
+                pick_up_message = f"You are alreading holding an item!"
                     
             grid[x][y] = "."  
             grid[x + i][y + j] = "L"
             current_loc = (x + i, y + j)
             partial_res = ["".join(row) for row in grid]
 
-            clear()
             load_mapp(partial_res)
+
+            
 
         if 0 <= x + i < len(grid) and 0 <= y + j < len(grid[0]):
             if grid[x + i][y + j] in [".", "_", "*", "x", "T"]: # if puwede daanan
@@ -153,16 +174,16 @@ def implement_game(filename): # updating map for each move ni user
                     if held_items == "x":
                         grid[x + i][y + j] = "."
                         held_items = None
+                        pick_up_message = "You used an axe!"
                     elif held_items == "*":
                         burn_trees(grid, x + i, y + j )
                         held_items = None
+                        pick_up_message = "You used a flamethrower!"
                     else:
                         clear()
                         partial_res = ["".join(row) for row in grid]
                         load_mapp(partial_res)
                         continue
-                        
-
 
                 grid[x][y] = previous_loc
                 previous_loc = grid[x + i][y + j]
@@ -172,8 +193,6 @@ def implement_game(filename): # updating map for each move ni user
                 clear()
                 load_mapp(partial_res)
             
-                clear()
-                load_mapp(partial_res)
             elif grid[x + i][y + j] == "R": # if rock
                 if grid[x + 2*i][y + 2*j] ==".":
                     grid[x + 2*i][y + 2*j] = "R"
@@ -210,6 +229,7 @@ def implement_game(filename): # updating map for each move ni user
                 if current_mush == mushrooms:
                     partial_res = ["".join(row) for row in grid]
                     clear()
+                    load_mapp(partial_res)
                     print("You Win!")
                     break
 
@@ -222,17 +242,6 @@ def implement_game(filename): # updating map for each move ni user
                 load_mapp(partial_res)
                 print("You fell in the water!")
                 break
-
-
-                        
-             
-
-
-
-
-
-                    
-    
 
 
 implement_game("testmap.txt")
