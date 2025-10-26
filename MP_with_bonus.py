@@ -1,5 +1,6 @@
 import os
 import time
+from argparse import ArgumentParser
 
 TILE_EMOJIS = {
     "T": "🌲",  # tree
@@ -44,7 +45,10 @@ def mushroom_counter(tups): # counter ng mushrooms
                 
 
 def mapp(filename): # turned map into list
-    with open(filename) as f:
+    if not os.path.exists(filename):
+        print(f"Error: Map file '{filename}' not found!")
+        exit(1)
+    with open(filename, encoding = "utf=8") as f:
         data = f.read().splitlines()
     return data
 
@@ -83,7 +87,8 @@ def implement_game(filename): # updating map for each move ni user
         "A": (0, -1), 
         "S":(1, 0), 
         "D":(0, 1),
-        "P":(0, 0)
+        "P":(0, 0),
+        "Q":(0, 0)
     }
 
     clear()
@@ -107,6 +112,7 @@ def implement_game(filename): # updating map for each move ni user
         print("[S] Move down")
         print("[D] Move right")
         print("[!] Reset")
+        print("[Q] Quit")
         print()
         
         if pick_up_message:  
@@ -167,6 +173,8 @@ def implement_game(filename): # updating map for each move ni user
 
             load_mapp(partial_res)
 
+        if movement == "Q":
+            break
             
 
         if 0 <= x + i < len(grid) and 0 <= y + j < len(grid[0]):
@@ -292,7 +300,12 @@ def show_leaderboard():
         print("Leaderboard has been cleared!")
         input("Press Enter to continue...") 
 
+
+
 def main():
+    parser = ArgumentParser(description="Play Shroom Raider!")
+    parser.add_argument("stage_file", nargs = "?", default = "testmap.txt", help="Path to the stage file (e.g., testmap.txt)")
+    args = parser.parse_args()
     while True:
         clear()
         choice = main_menu()
@@ -301,7 +314,7 @@ def main():
             name, gender = player_setup()
             input(f"{name}, get ready to become a \033[31mShroom \033[33mRaider!\033[0m""\nPress Enter to start the game...")
             start = time.time()
-            win = implement_game("testmap.txt")
+            win = implement_game(args.stage_file)
             end = time.time()
             duration = end - start
             if win:
