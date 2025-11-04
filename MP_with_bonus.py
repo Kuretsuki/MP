@@ -80,6 +80,11 @@ def burn_trees(grid, x, y):
     for dx, dy in [(-1,0),(1,0),(0,-1),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]:
         burn_trees(grid, x + dx, y + dy)
 
+def reset():
+    parser = ArgumentParser(description="Play Shroom Raider!")
+    parser.add_argument("stage_file", nargs = "?", default = "testmap.txt", help="Path to the stage file (e.g., testmap.txt)")
+    args = parser.parse_args()
+    implement_game(args.stage_file)
 
 def implement_game(filename): # updating map for each move ni user
     directions = {
@@ -88,7 +93,8 @@ def implement_game(filename): # updating map for each move ni user
         "S":(1, 0), 
         "D":(0, 1),
         "P":(0, 0),
-        "Q":(0, 0)
+        "Q":(0, 0),
+        "!":(0, 0)
     }
 
     clear()
@@ -175,6 +181,11 @@ def implement_game(filename): # updating map for each move ni user
 
         if movement == "Q":
             break
+
+        if movement == "!":
+            reset()
+            return 
+
             
 
         if 0 <= x + i < len(grid) and 0 <= y + j < len(grid[0]):
@@ -247,10 +258,29 @@ def implement_game(filename): # updating map for each move ni user
                 grid[x][y] = "."
                 current_loc = (x + i, y + j)
                 partial_res = ["".join(row) for row in grid]
+                user_input = "yn"
                 clear()
                 load_mapp(partial_res)
                 print("You fell in the water!")
-                return False
+                ans = input("Do you still want to continue the game [Y/N]: ").lower().strip()
+                while ans not in user_input or not ans:
+                    clear()
+                    load_mapp(partial_res)
+                    print("Invalid Move! Use only Y/N!: ")
+                    ans = input("Do you still want to continue the game [Y/N]: ")
+                    continue
+                if ans == "y":
+                    reset()
+                    return 
+                elif ans == "n":
+                    clear()
+                    load_mapp(partial_res)
+                    print("You lose!")
+                    return False
+        else:
+            partial_res = ["".join(row) for row in grid]
+            clear()
+            load_mapp(partial_res)
 
 def main_menu(): 
     print("\033[31mShroom \033[33mRaider!\033[0m")
@@ -261,8 +291,7 @@ def main_menu():
 
 def player_setup():
     name = input("Enter your username: ")
-    gender = input("Enter your gender (M/F): ")
-    return name, gender
+    return name
 
 def save_score(name, time_taken):
     with open("leaderboard.txt", "a") as f:
@@ -311,7 +340,7 @@ def main():
         choice = main_menu()
         if choice == "1":
             clear()
-            name, gender = player_setup()
+            name = player_setup()
             input(f"{name}, get ready to become a \033[31mShroom \033[33mRaider!\033[0m""\nPress Enter to start the game...")
             start = time.time()
             win = implement_game(args.stage_file)
