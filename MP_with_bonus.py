@@ -268,14 +268,13 @@ def implement_game(filename): # updating map for each move ni user
                         return True 
 
                 elif grid[x + i][y + j] == "~":
-                    grid[x + i][y + j] = "L"
                     grid[x][y] = "."
                     current_loc = (x + i, y + j)
                     partial_res = ["".join(row) for row in grid]
-                    collected_mush[0] = current_mush
-                    total_mush[0] = mushrooms
+                    collected_mush = current_mush
                     clear()
                     load_mapp(partial_res)
+                    print("Game Over!")
                     print("You fell in the water!")
                     return False
             else:
@@ -368,3 +367,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
