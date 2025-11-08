@@ -254,7 +254,6 @@ def implement_game(filename): # updating map for each move ni user
 
                 elif grid[x + i][y + j] == "+":
                     current_mush += 1
-                    collected_mush[0] = current_mush
                     grid[x + i][y + j] = "L"
                     grid[x][y] = "."
                     current_loc = (x + i, y + j)
@@ -273,6 +272,7 @@ def implement_game(filename): # updating map for each move ni user
                     grid[x][y] = "."
                     current_loc = (x + i, y + j)
                     partial_res = ["".join(row) for row in grid]
+                    collected_mush[0] = current_mush
                     clear()
                     load_mapp(partial_res)
                     print("Game Over!")
