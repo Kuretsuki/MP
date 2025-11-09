@@ -15,9 +15,10 @@ TILE_EMOJIS = {
 def load_mapp(mapp): 
     for row in mapp:
         emoji_row = [TILE_EMOJIS.get(tile, tile) for tile in row]
-        return "".join(emoji_row)
+        print("".join(emoji_row))
 
 
 # Clearing the terminal before displaying every output
 def clear():
+
     os.system('cls' if os.name == 'nt' else 'clear')
