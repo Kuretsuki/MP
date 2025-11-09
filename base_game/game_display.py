@@ -1,0 +1,23 @@
+import os
+
+TILE_EMOJIS = {
+    "T": "🌲",  # tree
+    ".": "  ",  # empty tile
+    "+": "🍄",  # mushroom
+    "R": "🪨",  # rock
+    "~": "🟦",  # water
+    "_": "🟥",  # paved
+    "x": "🪓",  # axe
+    "*": "🔥",  # flamethrower
+    "L": "🧑",  # Laro Craft (player)
+}
+# Displaying the map as emojis
+def load_mapp(mapp): 
+    for row in mapp:
+        emoji_row = [TILE_EMOJIS.get(tile, tile) for tile in row]
+        return "".join(emoji_row)
+
+
+# Clearing the terminal before displaying every output
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
