@@ -289,8 +289,9 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
 
                 elif grid[x + i][y + j] == "+":
                     current_mush += 1
+                    grid[x][y] = previous_loc    # restore the tile you were on
+                    previous_loc = "+"           # now the old tile under the player is a mushroom
                     grid[x + i][y + j] = "L"
-                    grid[x][y] = "."
                     current_loc = (x + i, y + j)
                     if moves is None:
                         partial_res = ["".join(row) for row in grid]
@@ -303,6 +304,7 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
                             clear()
                             load_mapp(partial_res)
                             print("You Win!")
+                            return True
                         else:
                             status = "CLEAR"  # mark status instead of returning immediately
                         break  # exit the while loop
@@ -459,5 +461,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
