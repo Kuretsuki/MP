@@ -4,14 +4,14 @@
 1. Download all files in the folder.  
 2. Make sure all files are in the same folder or follow the directory structure.  
 3. Open WSL (Windows Subsystem for Linux) or your preferred terminal.  
-4. Install the `termcolor` library:  
+4. Install the `termcolor` library:
    ```bash
    pip install termcolor
-5. Run the main program
+6. Run the main program
    ```bash
    python3 main.py
-6. The following are some other arguments that can be added at the end of the command:
-   - " -f <map.txt>", to specify which map
+7. The following are some other arguments that can be added at the end of the command:
+   - " -f <map.txt>", to specify which map to play
    - The following are used in automated mode"
    - " -m <"www">, to give a specific string of moves (case-insensitive)
    - " -o <output.txt>", to specify which file would the result be sent at
@@ -38,3 +38,6 @@
 - Movement checks for obstacles (trees, rocks, water) and handles item usage.
 - The game ends if the player falls in water or collects all mushrooms.
 - Each frame, the map is updated and displayed using load_mapp.
+
+## Resources
+1. [PyPI](https://pypi.org/project/termcolor/)
