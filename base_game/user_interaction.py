@@ -130,9 +130,9 @@ def implement_game(filename, moves = None, output_file = None):
                 grid[x][y] = "."  
                 grid[x + i][y + j] = "L"
                 current_loc = (x + i, y + j)
-                clear() if moves is None else None
-                partial_res = ["".join(row) for row in grid]
-                load_mapp(partial_res)
+                if moves is None:
+                    partial_res = ["".join(row) for row in grid]
+                    load_mapp(partial_res)
                 continue
 
             if movement == "!":
@@ -218,11 +218,12 @@ def implement_game(filename, moves = None, output_file = None):
                 elif grid[x + i][y + j] == "~":
                     grid[x][y] = "."
                     current_loc = (x + i, y + j)
-                    partial_res = ["".join(row) for row in grid]
                     collected_mush = current_mush
                     clear() if moves is None else None
-                    load_mapp(partial_res)
                     if moves is None:
+                        partial_res = ["".join(row) for row in grid]
+                        clear()
+                        load_mapp(partial_res)
                         print(colored("\nGame Over!", "red"))
                         print(colored("You fell in the water!"))
                         print(f"\n{collected_mush} out of {mushrooms} mushroom(s) collected\n")
