@@ -116,13 +116,13 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
     current_mush = 0
     mushrooms = mushroom_counter(mapp(filename))
 
-    if moves is None:
+    if moves is not None:
+        moves = list(moves.upper())
+    else:
         clear()
         load_mapp(first_display)
 
-    if moves is not None:
-        moves = list(moves.upper())
-
+    status = "NO CLEAR"
 
     while True:
         if moves is None:
@@ -221,8 +221,6 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
                     clear()
                     load_mapp(partial_res)
                     print("You quit the game.")
-                else:
-                    print("NO CLEAR")
 
                 # ✅ Write NO CLEAR to output file
                 if output_file:
@@ -289,8 +287,8 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
 
                 elif grid[x + i][y + j] == "+":
                     current_mush += 1
-                    grid[x][y] = previous_loc    # restore the tile you were on
-                    previous_loc = "+"           # now the old tile under the player is a mushroom
+                    grid[x][y] = previous_loc   # restore the tile you were on
+                    previous_loc = "."           # now the old tile under the player is a mushroom
                     grid[x + i][y + j] = "L"
                     current_loc = (x + i, y + j)
                     if moves is None:
@@ -324,6 +322,8 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
                     if moves is None:
                         print("\033[31mGame Over!\033[0m")
                         print("You fell in the water!")
+                        collected_mush[0] = current_mush
+                        total_mush[0] = mushrooms
                     else:
                         print("NO CLEAR")
 
@@ -345,11 +345,7 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
 
     if moves is not None:
         partial_res = ["".join(row) for row in grid]
-        load_mapp(partial_res)
         # If status wasn't set (did not clear), mark as NO CLEAR
-        if 'status' not in locals():
-            status = "NO CLEAR"
-        print(status)
         if output_file:
             with open(output_file, "w", encoding="utf-8") as f:
                 f.write(status + "\n")
@@ -416,18 +412,15 @@ def main():
     parser.add_argument("-o", "--output", default=None, help="Output file for final map state")
     args = parser.parse_args()
 
-    # If moves (-m) is provided → run automated mode
+    # AUTOMATED MODE: no terminal display at all
     if args.moves:
-        for moves in args.moves:
-            print(f"Auto move: {moves}")
-            time.sleep(0.1)
+        # No print() here — fully silent
         result = implement_game(args.stage_file, moves=args.moves, output_file=args.output)
-        # If player fell into water or hit "!" during automated mode, restart until done
         while result == "RESET":
             result = implement_game(args.stage_file, moves=args.moves, output_file=args.output)
         return
 
-    # Otherwise → run interactive menu
+    # INTERACTIVE MODE: normal menu flow
     while True:
         clear()
         choice = main_menu()
@@ -437,7 +430,6 @@ def main():
             input(f"{name}, get ready to become a Shroom Raider!\nPress Enter to start the game...")
             start = time.time()
             result = implement_game(args.stage_file)
-            # Handle reset loop for interactive play
             while result == "RESET":
                 result = implement_game(args.stage_file)
             end = time.time()
