@@ -14,6 +14,9 @@ TILE_EMOJIS = {
     "L": "🧑",  # Laro Craft (player)
 }
 
+collected_mush = [0]
+total_mush = [0]
+
 def load_mapp(mapp):
     for row in mapp:
         emoji_row = [TILE_EMOJIS.get(tile, tile) for tile in row]
@@ -81,17 +84,8 @@ def burn_trees(grid, x, y):
         return
 
     grid[x][y] = "." # burned trees turns to empty
-    for dx, dy in [(-1,0),(1,0),(0,-1),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]:
+    for dx, dy in [(-1,0),(1,0),(0,-1),(0,1)]:
         burn_trees(grid, x + dx, y + dy)
-
-def reset():
-    parser = ArgumentParser(description="Play Shroom Raider!")
-    parser.add_argument("stage_file", nargs = "?", default = "testmap.txt", help="Path to the stage file (e.g., testmap.txt)")
-    args = parser.parse_args()
-    implement_game(args.stage_file)
-
-collected_mush = [0]
-total_mush = [0]
 
 def implement_game(filename, moves = None, output_file = None): # updating map for each move ni user
     directions = {
@@ -222,7 +216,6 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
                     load_mapp(partial_res)
                     print("You quit the game.")
 
-                # ✅ Write NO CLEAR to output file
                 if output_file:
                     with open(output_file, "w", encoding="utf-8") as f:
                         f.write("NO CLEAR\n")
@@ -232,8 +225,7 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
                 return False
 
             if movement == "!":
-                reset()
-                return 
+                return "RESET"
 
             if 0 <= x + i < len(grid) and 0 <= y + j < len(grid[x + i]):
                 if grid[x + i][y + j] in [".", "_", "*", "x", "T"]: # if puwede daanan
@@ -287,8 +279,8 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
 
                 elif grid[x + i][y + j] == "+":
                     current_mush += 1
-                    grid[x][y] = previous_loc   # restore the tile you were on
-                    previous_loc = "."           # now the old tile under the player is a mushroom
+                    grid[x][y] = previous_loc   
+                    previous_loc = "."        
                     grid[x + i][y + j] = "L"
                     current_loc = (x + i, y + j)
                     if moves is None:
@@ -304,17 +296,13 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
                             print("You Win!")
                             return True
                         else:
-                            status = "CLEAR"  # mark status instead of returning immediately
-                        break  # exit the while loop
+                            status = "CLEAR"
+                        break 
 
                 elif grid[x + i][y + j] == "~":
                     grid[x][y] = "."
                     current_loc = (x + i, y + j)
-
-                    # Prepare final map display
                     partial_res = ["".join(row) for row in grid]
-
-                    # Show map in interactive and automated mode
                     clear() if moves is None else None
                     load_mapp(partial_res)
 
@@ -345,7 +333,6 @@ def implement_game(filename, moves = None, output_file = None): # updating map f
 
     if moves is not None:
         partial_res = ["".join(row) for row in grid]
-        # If status wasn't set (did not clear), mark as NO CLEAR
         if output_file:
             with open(output_file, "w", encoding="utf-8") as f:
                 f.write(status + "\n")
@@ -412,7 +399,7 @@ def main():
     parser.add_argument("-o", "--output", default=None, help="Output file for final map state")
     args = parser.parse_args()
 
-    # AUTOMATED MODE: no terminal display at all
+    # AUTOMATED MODE
     if args.moves:
         # No print() here — fully silent
         result = implement_game(args.stage_file, moves=args.moves, output_file=args.output)
@@ -420,7 +407,7 @@ def main():
             result = implement_game(args.stage_file, moves=args.moves, output_file=args.output)
         return
 
-    # INTERACTIVE MODE: normal menu flow
+    # INTERACTIVE MODE 
     while True:
         clear()
         choice = main_menu()
