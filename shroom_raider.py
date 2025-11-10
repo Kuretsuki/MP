@@ -354,23 +354,24 @@ def player_setup():
     name = input("Enter your username: ")
     return name
 
-def save_score(name, time_taken):
+def save_score(name, time_taken, map_file):
     with open("leaderboard.txt", "a") as f:
-        f.write(f"{name},{time_taken}\n")
+        f.write(f"{map_file},{name},{time_taken}\n")
 
-def load_leaderboard():
+def load_leaderboard(map_file):
     scores = []
     if os.path.exists("leaderboard.txt"):
         with open("leaderboard.txt") as f:
             for line in f:
-                name, time_taken = line.strip().split(",")
-                scores.append((name, float(time_taken)))
+                entry_map, name, time_taken = line.strip().split(",")
+                if entry_map == map_file:
+                    scores.append((name, float(time_taken)))
     scores.sort(key=lambda x: x[1])
     return scores
 
-def show_leaderboard():
+def show_leaderboard(map_file):
     clear()
-    scores = load_leaderboard()
+    scores = load_leaderboard(map_file)
     print("=== LEADERBOARDS ===")
     if not scores:
         print("No records yet!")
@@ -423,13 +424,13 @@ def main():
             duration = end - start
             if result:
                 print(f"\n{name}, you finished in {duration:.2f} seconds!")
-                save_score(name, duration)
+                save_score(name, duration, args.stage_file)
             else:
                 print(f"You have collected {collected_mush[0]} out of {total_mush[0]} mushroom(s)")
                 print(f"\n{name}, better luck next time!")
             input("\nPress Enter to return to menu...")
         elif choice == "2":
-            show_leaderboard()
+            show_leaderboard(args.stage_file)
         elif choice == "3":
             print("I am sure you'll be back...")
             break
