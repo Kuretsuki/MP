@@ -27,14 +27,12 @@ def main():
 
     while True:
         result = implement_game(args.stage_file)
-        if result == "RESET":
+        while result == "RESET":
             result = implement_game(args.stage_file)
-            return 
-        else:
-            break
-        if result in ("CLEAR", "NO CLEAR"):
+        if result in ("CLEAR", "NO CLEAR", True, False):
             break
 
 
 if __name__ == "__main__":
     main()
+
