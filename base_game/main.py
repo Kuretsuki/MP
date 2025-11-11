@@ -29,6 +29,7 @@ def main():
         result = implement_game(args.stage_file)
         if result == "RESET":
             result = implement_game(args.stage_file)
+            return 
         else:
             break
         if result in ("CLEAR", "NO CLEAR"):
