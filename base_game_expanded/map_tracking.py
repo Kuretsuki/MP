@@ -17,7 +17,7 @@ def finding_L(tups):
     directions = [(1,0), (-1,0)]
 
     for i in range(r):
-        for j in range(len(tups[i]):
+        for j in range(len(tups[i])):
             if grid[i][j] == "L":
                 return (i, j)
                 
@@ -31,7 +31,7 @@ def finding_items(tups):
     fire = []
 
     for i in range(r):
-        for j in range(len(tups[i]):
+        for j in range(len(tups[i])):
             if grid[i][j] == "x":
                 axe.append((i, j))
             elif grid[i][j] == "*":
@@ -45,8 +45,9 @@ def mushroom_counter(tups): # counter ng mushrooms
     grid = [list(row) for row in tups]
     total_mushrooms = 0
     for i in range(r):
-        for j in range(len(tups[i]):
+        for j in range(len(tups[i])):
             if grid[i][j] == "+":
                 total_mushrooms += 1
 
     return total_mushrooms  
+
