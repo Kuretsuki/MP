@@ -1,3 +1,11 @@
+from argparse import ArgumentParser
+from user_interaction import implement_game
+import os
+import time
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def main_menu(): 
     print("==", "\033[31mShroom \033[33mRaider!\033[0m", "==")
     print("Press 1 to Play Game")
@@ -45,8 +53,6 @@ def show_leaderboard(map_file):
             pass
         print("Leaderboard has been cleared!")
         input("Press Enter to continue...") 
-
-
 
 def main():
     parser = ArgumentParser(description="Play Shroom Raider!")
