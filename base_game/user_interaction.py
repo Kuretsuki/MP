@@ -4,7 +4,7 @@ from map_tracking import mapp, finding_L, finding_items, mushroom_counter
 from game_main_controls import handle_pickup, handle_movement
 import time
 
-def implement_game(filename, moves = None, output_file = None): 
+def implement_game(filename, moves = None, output_file = None, silent = False): 
     directions = {
         "W": (-1, 0),
         "A": (0, -1),
@@ -34,35 +34,37 @@ def implement_game(filename, moves = None, output_file = None):
 
     # Start of the game
     first_display = ["".join(row) for row in grid]
-    if moves is None: 
+    if moves is None and silent is False: 
         load_mapp(first_display)
     else:
         moves = list(moves.upper())
 
     while True:
         if moves is None:
-            print(colored(f"\n{current_mush} ", "light_magenta") +
+            if silent is False:
+                print(colored(f"\n{current_mush} ", "light_magenta") +
                   "out of " + colored(f"{mushrooms} ", "light_magenta") +
                   " mushroom(s) collected\n")
-            print("[W] Move up\n[A] Move left\n[S] Move down\n[D] Move right\n[P] Pick up\n[!] Reset\n")
+                print("[W] Move up\n[A] Move left\n[S] Move down\n[D] Move right\n[P] Pick up\n[!] Reset\n")
 
-            if pick_up_message:
+            if pick_up_message and silent is False:
                 print(pick_up_message)
                 pick_up_message = ""
             else:
-                if current_loc in axes_loc:
-                    print(colored("There is an axe available for pickup!", "yellow")
-                          if not held_items else colored("This item is unavailable for pickup.", "red"))
-                elif current_loc in fires_loc:
-                    print(colored("There is a flamethrower available for pickup!", "yellow")
-                          if not held_items else colored("This item is currently unavailable for pickup.", "red"))
-                else:
-                    print("There is no item here.")
-
-            print(f"Currently holding {TILE_EMOJIS[held_items]}" if held_items else "Currently not holding anything.")
+                if silent is False:
+                    if current_loc in axes_loc:
+                        print(colored("There is an axe available for pickup!", "yellow")
+                              if not held_items else colored("This item is unavailable for pickup.", "red"))
+                    elif current_loc in fires_loc:
+                        print(colored("There is a flamethrower available for pickup!", "yellow")
+                              if not held_items else colored("This item is currently unavailable for pickup.", "red"))
+                    else:
+                        print("There is no item here.")
+            if silent is False:
+                print(f"Currently holding {TILE_EMOJIS[held_items]}" if held_items else "Currently not holding anything.")
 
             movements = input("What is your next move?: ").upper()
-            if not movements:
+            if not movements and silent is False:
                 clear()
                 load_mapp(["".join(row) for row in grid])
                 print(colored("\nInvalid move! Use W/A/S/D/P/!.", "red"))
@@ -76,7 +78,7 @@ def implement_game(filename, moves = None, output_file = None):
 
         for movement in movement_list:
             if movement not in directions:
-                if moves is None:
+                if moves is None and silent is False:
                     clear()
                     load_mapp(["".join(row) for row in grid])
                     print(colored("\nInvalid move! Use W/A/S/D/P/!.", "red"))
@@ -91,7 +93,7 @@ def implement_game(filename, moves = None, output_file = None):
             if movement == "P":
                 previous_loc, held_items, pick_up_message = handle_pickup(
                     previous_loc, current_loc, axes_loc, fires_loc, held_items, grid)
-                if moves is None:
+                if moves is None and silent is False:
                     clear()
                     load_mapp(["".join(row) for row in grid])
                 continue
@@ -101,7 +103,7 @@ def implement_game(filename, moves = None, output_file = None):
 
             current_loc, previous_loc, held_items, current_mush, state, pick_up_message = handle_movement(
                 grid, x, y, i, j, held_items, previous_loc, current_mush, mushrooms,
-                multi_move = (len(movement_list) > 1)
+                multi_move = (len(movement_list) > 1), silent = silent
             )
 
             if state is True:
