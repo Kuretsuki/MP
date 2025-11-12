@@ -29,7 +29,7 @@ def handle_pickup(previous_loc, current_loc, axes_loc, fires_loc, held_items, gr
     return previous_loc, held_items, pick_up_message
 
 
-def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mushrooms, multi_move = False):
+def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mushrooms, multi_move = False, silent = False):
     current_loc = (x, y)
     next_x, next_y = x + i, y + j
     pick_up_message = ""
@@ -38,9 +38,10 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
     # Checking if movement is within map bounds
     if not (0 <= next_x < len(grid) and 0 <= next_y < len(grid[0])):
         partial_res = ["".join(row) for row in grid]
-        clear()
-        load_mapp(partial_res)
-        print(colored("\nYou cannot move outside the map!", "red"))
+        if silent is False:
+            clear()
+            load_mapp(partial_res)
+            print(colored("\nYou cannot move outside the map!", "red"))
         return (x, y), previous_loc, held_items, current_mush, None, pick_up_message
 
     target_cell = grid[next_x][next_y]
@@ -58,16 +59,18 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
                 pick_up_message = colored("You used a flamethrower!", "yellow")
             else:
                 partial_res = ["".join(row) for row in grid]
-                clear()
-                load_mapp(partial_res)
-                print(colored("\nThere's a tree blocking your path!", "red"))
+                if silent is False:
+                    clear()
+                    load_mapp(partial_res)
+                    print(colored("\nThere's a tree blocking your path!", "red"))
                 return (x, y), previous_loc, held_items, current_mush, None, pick_up_message
 
         grid[x][y] = previous_loc
         previous_loc = grid[next_x][next_y]
         grid[next_x][next_y] = "L"
-        clear()
-        load_mapp(["".join(row) for row in grid])
+        if silent is False:
+            clear()
+            load_mapp(["".join(row) for row in grid])
 
         if delay and multi_move:
             time.sleep(0.25)
@@ -79,9 +82,10 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
         next_two_x, next_two_y = x + 2*i, y + 2*j
         if not (0 <= next_two_x < len(grid) and 0 <= next_two_y < len(grid[0])):
             partial_res = ["".join(row) for row in grid]
-            clear()
-            load_mapp(partial_res)
-            print(colored("\nYou can't push the rock off the map!", "red"))
+            if silent is False:
+                clear()
+                load_mapp(partial_res)
+                print(colored("\nYou can't push the rock off the map!", "red"))
             return (x, y), previous_loc, held_items, current_mush, None, pick_up_message
 
         next_cell = grid[next_two_x][next_two_y]
@@ -111,21 +115,24 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
         elif next_cell in ["T", "+"]:
             partial_res = ["".join(row) for row in grid]
             obstacle = "tree" if next_cell == "T" else "mushroom"
-            clear()
-            load_mapp(partial_res)
-            print(colored(f"\nThere's a {obstacle} blocking your path!", "red"))
+            if silent is False:
+                clear()
+                load_mapp(partial_res)
+                print(colored(f"\nThere's a {obstacle} blocking your path!", "red"))
             return (x, y), previous_loc, held_items, current_mush, None, pick_up_message
 
         # If two or more rock is pushed 
         elif next_cell == "R":
             partial_res = ["".join(row) for row in grid]
-            clear()
-            load_mapp(partial_res)
-            print(colored("\nYou're not strong enough to push multiple rocks!", "red"))
+            if silent is False:
+                clear()
+                load_mapp(partial_res)
+                print(colored("\nYou're not strong enough to push multiple rocks!", "red"))
             return (x, y), previous_loc, held_items, current_mush, None, pick_up_message
 
-        clear()
-        load_mapp(["".join(row) for row in grid])
+        if silent is False:
+            clear()
+            load_mapp(["".join(row) for row in grid])
         if delay and multi_move:
             time.sleep(0.15)
 
@@ -138,25 +145,27 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
         previous_loc = "."
         grid[next_x][next_y] = "L"
         current_loc = (next_x, next_y)
-        clear()
-        load_mapp(["".join(row) for row in grid])
+        if silent is False:
+            clear()
+            load_mapp(["".join(row) for row in grid])
 
         # Collected all mushrooms - Winning state
         if current_mush == mushrooms:
-            print(colored("\nCongratulations!", "yellow"))
-            print(f"\n{mushrooms} out of {mushrooms} mushroom(s) collected\n")
+            if silent is False:
+                print(colored("\nCongratulations!", "yellow"))
+                print(f"\n{mushrooms} out of {mushrooms} mushroom(s) collected\n")
             return current_loc, previous_loc, held_items, current_mush, True, pick_up_message
-        else:
 
-            return current_loc, previous_loc, held_items, current_mush, None, pick_up_message
+        return current_loc, previous_loc, held_items, current_mush, None, pick_up_message
 
     # Falling in the water - Losing State
     elif target_cell == "~":
         grid[x][y] = "."
         current_loc = (next_x, next_y)
-        clear()
-        load_mapp(["".join(row) for row in grid])
-        print(colored("\nGame Over!", "red"))
-        print(colored("You fell in the water!"))
-        print(f"\n{current_mush} out of {mushrooms} mushroom(s) collected\n")
+        if silent is False:
+            clear()
+            load_mapp(["".join(row) for row in grid])
+            print(colored("\nGame Over!", "red"))
+            print(colored("You fell in the water!"))
+            print(f"\n{current_mush} out of {mushrooms} mushroom(s) collected\n")
         return current_loc, previous_loc, held_items, current_mush, False, pick_up_message
