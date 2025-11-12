@@ -1,6 +1,6 @@
 # Flame thrower functionality
 def burn_trees(grid, x, y):
-    if not (0 <= x < len(grid) and 0 <= y < len(grid[0])):
+    if not (0 <= x < len(grid) and 0 <= y < len(grid[x])):
         return grid
     if grid[x][y] != "T":
         return grid
@@ -14,3 +14,4 @@ def burn_trees(grid, x, y):
 def cut_tree(grid, x, y):
     grid[x][y] = "."
     return grid
+
