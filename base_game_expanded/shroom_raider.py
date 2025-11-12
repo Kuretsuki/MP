@@ -63,9 +63,7 @@ def main():
 
     # AUTOMATED MODE
     if args.moves:
-        result = implement_game(args.stage_file, moves=args.moves, output_file=args.output)
-        while result == "RESET":
-            result = implement_game(args.stage_file, moves=args.moves, output_file=args.output)
+        result = implement_game(args.stage_file, moves=args.moves, output_file=args.output, silent = True)
         return
 
     # INTERACTIVE MODE 
