@@ -30,7 +30,7 @@
 3. `items_functionality.py` - Functions to interact with items (cutting trees, burning trees, etc.).
 4. `map_tracking.py` - Functions to track the map, player location, and mushrooms.
 5. `user_interaction.py` - Function that handles user's interaction with the environment.
-6. `game_main_controls.py` - Functions that processes the primary moves W, A, S, D, P.
+6. `game_main_controls.py` - Functions that processes the primary moves W, A, S, D, and P.
 7. `bonus/` - Directory that contains all the bonus functions
 
 ## Algorithm Overview
