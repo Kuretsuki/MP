@@ -44,8 +44,8 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
     while True:
         if moves is None:
             if silent is False:
-                print(colored(f"\n{current_mush} ", "magenta") +
-                  "out of " + colored(f"{mushrooms} ", "magenta") +
+                print(colored(f"\n{current_mush} ", "light_magenta") +
+                  "out of " + colored(f"{mushrooms} ", "light_magenta") +
                   " mushroom(s) collected\n")
                 print("[W] Move up\n[A] Move left\n[S] Move down\n[D] Move right\n[P] Pick up\n[!] Reset\n[Q] Quit\n")
 
@@ -69,7 +69,7 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
             if not movements and silent is False:
                 clear()
                 load_mapp(["".join(row) for row in grid])
-                print(colored("\nInvalid move! Use W/A/S/D/P/!.", "red"))
+                print(colored("\nInvalid move! Use W/A/S/D/P/!/Q.", "red"))
                 continue
             movement_list = list(movements)
 
@@ -130,6 +130,6 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
                         f.write(row + "\n")
 
         if state in (True, False):
-            return status
+            return state
 
     return status
