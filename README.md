@@ -3,8 +3,8 @@
 ## How to Run the Game
 1. Download all files in the folder.  
 2. Make sure all files are in the same folder or follow the directory structure.  
-3. Open WSL (Windows Subsystem for Linux) or your preferred terminal.
-(Note: It is advisable to use the latest version of Python to ensure compatibility with all dependencies.)
+3. Open WSL (Windows Subsystem for Linux) or your preferred terminal
+(Note: It is advisable to use the latest version of Python to ensure compatibility with all dependencies).
 4. Install the required dependencies with:
    ```bash
    python3 -m pip install -r requirements.txt
