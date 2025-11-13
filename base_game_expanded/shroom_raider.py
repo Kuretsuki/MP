@@ -3,6 +3,7 @@ from user_interaction import implement_game
 import os
 import time
 
+
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -65,7 +66,7 @@ def main():
     if args.moves:
         result = implement_game(args.stage_file, moves=args.moves, output_file=args.output, silent = True)
         return
-
+        
     # INTERACTIVE MODE 
     while True:
         clear()
@@ -80,12 +81,11 @@ def main():
                 result = implement_game(args.stage_file)
             end = time.time()
             duration = end - start
-            if result:
+            if result == "TRUE":
                 print(f"\n{name}, you finished in {duration:.2f} seconds!")
                 save_score(name, duration, args.stage_file)
-            else:
-                print(f"You have collected {collected_mush[0]} out of {total_mush[0]} mushroom(s)")
-                print(f"\n{name}, better luck next time!")
+            elif result == "QUIT":
+                print("You Quit!")
             input("\nPress Enter to return to menu...")
         elif choice == "2":
             show_leaderboard(args.stage_file)
