@@ -36,7 +36,7 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
     delay = True
 
     # Checking if movement is within map bounds
-    if not (0 <= next_x < len(grid) and 0 <= next_y < len(grid[0])):
+    if not (0 <= next_x < len(grid) and 0 <= next_y < len(grid[next_x])):
         partial_res = ["".join(row) for row in grid]
         if silent is False:
             clear()
@@ -80,7 +80,7 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
     # Pushing rocks
     elif target_cell == "R":
         next_two_x, next_two_y = x + 2*i, y + 2*j
-        if not (0 <= next_two_x < len(grid) and 0 <= next_two_y < len(grid[0])):
+        if not (0 <= next_two_x < len(grid) and 0 <= next_two_y < len(grid[next_two_x])):
             partial_res = ["".join(row) for row in grid]
             if silent is False:
                 clear()
@@ -94,14 +94,16 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
         if next_cell == ".":
             grid[next_two_x][next_two_y] = "R"
             grid[next_x][next_y] = "L"
-            grid[x][y] = "."
+            grid[x][y] = previous_loc
+            previous_loc = "."
             current_loc = (next_x, next_y)
 
         # If rock is pushed in the water
         elif next_cell == "~":
             grid[next_two_x][next_two_y] = "_"
             grid[next_x][next_y] = "L"
-            grid[x][y] = "."
+            grid[x][y] = previous_loc
+            previous_loc = "."
             current_loc = (next_x, next_y)
 
         # If rock is pushed on a paved-tile
@@ -169,4 +171,3 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             print(colored("You fell in the water!"))
             print(f"\n{current_mush} out of {mushrooms} mushroom(s) collected\n")
         return current_loc, previous_loc, held_items, current_mush, False, pick_up_message
-
