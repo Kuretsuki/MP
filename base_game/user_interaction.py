@@ -32,6 +32,8 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
     mushrooms = mushroom_counter(mapp(filename))
     current_mush = 0
 
+    tile_under_rock = "."
+
     # Start of the game
     first_display = ["".join(row) for row in grid]
     if moves is None and silent is False: 
@@ -101,8 +103,8 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
             if movement == "!":
                 return "RESET"
 
-            current_loc, previous_loc, held_items, current_mush, state, pick_up_message = handle_movement(
-                grid, x, y, i, j, held_items, previous_loc, current_mush, mushrooms,
+            current_loc, previous_loc, held_items, current_mush, state, pick_up_message, tile_under_rock = handle_movement(
+                grid, x, y, i, j, held_items, previous_loc, current_mush, mushrooms, tile_under_rock,
                 multi_move = (len(movement_list) > 1), silent = silent
             )
 
