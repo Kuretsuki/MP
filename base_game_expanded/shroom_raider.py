@@ -81,7 +81,7 @@ def main():
                 result = implement_game(args.stage_file)
             end = time.time()
             duration = end - start
-            if result == "TRUE":
+            if result is True:
                 print(f"\n{name}, you finished in {duration:.2f} seconds!")
                 save_score(name, duration, args.stage_file)
             elif result == "QUIT":
