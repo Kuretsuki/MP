@@ -173,7 +173,7 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
 
     # Falling in the water - Losing State
     elif target_cell == "~":
-        grid[x][y] = "."
+        grid[x][y] = previous_loc
         current_loc = (next_x, next_y)
         if silent is False:
             clear()
@@ -192,5 +192,6 @@ def initialize_rocks(grid):
                 # Assume rocks start on dirt
                 rock_underlying_tiles[(x, y)] = "."
     return rock_underlying_tiles
+
 
 
