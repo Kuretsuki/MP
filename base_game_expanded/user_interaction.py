@@ -11,7 +11,8 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
         "S": (1, 0),
         "D": (0, 1),
         "P": (0, 0),
-        "!": (0, 0)
+        "!": (0, 0),
+        "Q": (0, 0)
     }
 
     # State-related variables
@@ -31,6 +32,7 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
     # Mushroom-related variables
     mushrooms = mushroom_counter(mapp(filename))
     current_mush = 0
+    rock_underlying_tiles = {}
 
     # Start of the game
     first_display = ["".join(row) for row in grid]
@@ -42,10 +44,10 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
     while True:
         if moves is None:
             if silent is False:
-                print(colored(f"\n{current_mush} ", "light_magenta") +
-                  "out of " + colored(f"{mushrooms} ", "light_magenta") +
+                print(colored(f"\n{current_mush} ", "magenta") +
+                  "out of " + colored(f"{mushrooms} ", "magenta") +
                   " mushroom(s) collected\n")
-                print("[W] Move up\n[A] Move left\n[S] Move down\n[D] Move right\n[P] Pick up\n[!] Reset\n")
+                print("[W] Move up\n[A] Move left\n[S] Move down\n[D] Move right\n[P] Pick up\n[!] Reset\n[Q] Quit\n")
 
             if pick_up_message and silent is False:
                 print(pick_up_message)
@@ -81,7 +83,7 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
                 if moves is None and silent is False:
                     clear()
                     load_mapp(["".join(row) for row in grid])
-                    print(colored("\nInvalid move! Use W/A/S/D/P/!.", "red"))
+                    print(colored("\nInvalid move! Use W/A/S/D/P/!/Q.", "red"))
                 else:
                     status = "NO CLEAR"
                 movement_list = [] 
@@ -101,10 +103,16 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
             if movement == "!":
                 return "RESET"
 
-            current_loc, previous_loc, held_items, current_mush, state, pick_up_message = handle_movement(
+            if movement == "Q":
+                partial_res = ["".join(row) for row in grid]
+                if moves is None:
+                    clear()
+                    load_mapp(partial_res)
+                return "QUIT"
+            
+            current_loc, previous_loc, held_items, current_mush, state, pick_up_message, rock_underlying_tiles = handle_movement(
                 grid, x, y, i, j, held_items, previous_loc, current_mush, mushrooms,
-                multi_move = (len(movement_list) > 1), silent = silent
-            )
+                rock_underlying_tiles ,multi_move = (len(movement_list) > 1), silent = silent)
 
             if state is True:
                 status = "CLEAR"
