@@ -12,7 +12,7 @@
    python3 -m pip install -r requirements.txt
 6. Run the main program
    ```bash
-   python3 main.py
+   python3 shroom_raider.py
 7. The following are some other arguments that can be added at the end of the command:
    - " -f <map.txt>", to specify which map to play
    - The following are used in automated mode"
