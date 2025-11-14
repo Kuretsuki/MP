@@ -67,7 +67,7 @@
 2. Temporary path used in test_mapp - [1] https://www.youtube.com/watch?v=pVYVPCiGxiE&t=177s [2] https://docs.pytest.org/en/stable/how-to/tmp_path.html#tmp-path-handling
 
 
-### Links
+### Additional Resources
 1. Reading and Writing to Files - [1] https://www.youtube.com/watch?v=Uh2ebFW8OYM
 2. Timer - [1] https://www.youtube.com/watch?v=XJthLewtvSw
 3. Understanding os Module - [1] https://www.geeksforgeeks.org/python/os-module-python-examples/
