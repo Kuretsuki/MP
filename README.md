@@ -50,6 +50,7 @@
 1. Ability to Quit the game while playing
 2. Main Menu
 3. Leaderboard, being able to manually reset the leaderboards
+4. Map selector
 
 
 ## Resources
@@ -59,7 +60,7 @@
 ### Libraries and Modules
 1. [PyPI](https://pypi.org/project/termcolor/) - Used for displaying colored text in the terminal.
 2. time - Used for short delay of movements if the user's input is a string of two or more valid characters. 
-3. os - Used for checking the files inside the directory, specifically the leaderboard file. If not in the directory, then it helps to create one.
+3. os - Used for checking the files inside the directory, tracking the files, and adding missing files such as output.txt for automated testing and leaderboard.txt for the leaderboard.
 
 ### Unit Testing
 1. Understanding unit testing and pytest in general - [1] https://www.youtube.com/watch?v=EgpLj86ZHFQ&t=1803s
