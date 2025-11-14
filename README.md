@@ -62,7 +62,6 @@ The project contains unit tests for the following key modules:
 4. If intended to run a specific test file, navigate to the subfolder named "tests" and run:
    ```bash
    pytest test_file_name.py
-   
 
 ## Bonus Features
 1. Main Menu
