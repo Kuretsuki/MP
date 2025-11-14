@@ -1,5 +1,8 @@
 import os
 
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def main_menu(): 
     print("""
    _____ _                                _____       _     _   
