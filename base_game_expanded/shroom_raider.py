@@ -8,16 +8,13 @@ def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def resolve_map_path(map_file):
-    # Check if it exists as given
     if os.path.exists(map_file):
         return map_file
     
-    # Check if it exists in maps directory
     maps_path = os.path.join("maps", map_file)
     if os.path.exists(maps_path):
         return maps_path
     
-    # Check if just the filename exists in maps directory
     map_filename = os.path.basename(map_file)
     maps_path = os.path.join("maps", map_filename)
     if os.path.exists(maps_path):
