@@ -94,7 +94,7 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
         rock_pos = (next_x, next_y)
         if rock_pos in rock_underlying_tiles:
             tile_under_rock = rock_underlying_tiles[rock_pos]
-            del rock_underlying_tiles[rock_pos]
+            del rock_underlying_tiles[rock_pos]  # Remove old position
         else:
             # If not tracked, assume it's on dirt
             tile_under_rock = "."
@@ -104,7 +104,8 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             grid[next_two_x][next_two_y] = "R"
             grid[next_x][next_y] = "L"
             grid[x][y] = previous_loc
-            previous_loc = tile_under_rock
+            previous_loc = tile_under_rock  # Restore what was under the rock
+            # Track what's under the rock at its new position
             rock_underlying_tiles[(next_two_x, next_two_y)] = "."
             current_loc = (next_x, next_y)
 
@@ -113,7 +114,8 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             grid[next_two_x][next_two_y] = "_"
             grid[next_x][next_y] = "L"
             grid[x][y] = previous_loc
-            previous_loc = tile_under_rock
+            previous_loc = tile_under_rock  # Restore what was under the rock
+            # No need to track - rock is gone, replaced with paved tile
             current_loc = (next_x, next_y)
 
         # If rock is pushed on a paved-tile
@@ -122,6 +124,7 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             grid[next_x][next_y] = "L"
             grid[x][y] = previous_loc
             previous_loc = tile_under_rock  # Restore what was under the rock
+            # Track that the rock is now sitting on a paved tile
             rock_underlying_tiles[(next_two_x, next_two_y)] = "_"
             current_loc = (next_x, next_y)
 
@@ -174,7 +177,7 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
 
     # Falling in the water - Losing State
     elif target_cell == "~":
-        grid[x][y] = previous_loc
+        grid[x][y] = "."
         current_loc = (next_x, next_y)
         if silent is False:
             clear()
@@ -183,13 +186,3 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             print(colored("You fell in the water!"))
             print(f"\n{current_mush} out of {mushrooms} mushroom(s) collected\n")
         return current_loc, previous_loc, held_items, current_mush, False, pick_up_message, rock_underlying_tiles
-
-
-def initialize_rocks(grid):
-    rock_underlying_tiles = {}
-    for x in range(len(grid)):
-        for y in range(len(grid[x])):
-            if grid[x][y] == "R":
-                # Assume rocks start on dirt
-                rock_underlying_tiles[(x, y)] = "."
-    return rock_underlying_tiles
