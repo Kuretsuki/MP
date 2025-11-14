@@ -31,6 +31,9 @@ def implement_game(filename, moves = None, output_file = None, silent = False):
     # Mushroom-related variables
     mushrooms = mushroom_counter(mapp(filename))
     current_mush = 0
+
+    # Rock-related variables
+    # Making sure that rock/rocks are properly tracked to ensure expected results
     rock_underlying_tiles = {}
 
     # Start of the game
