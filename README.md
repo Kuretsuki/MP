@@ -52,5 +52,5 @@
 ### Unit Testing
 1. Understanding unit testing and pytest in general - [1] https://www.youtube.com/watch?v=EgpLj86ZHFQ&t=1803s
 2. Temporary path used in test_mapp - [1] https://www.youtube.com/watch?v=pVYVPCiGxiE&t=177s [2] https://docs.pytest.org/en/stable/how-to/tmp_path.html#tmp-path-handling
-3. Reading and Writing to Files - [l] https://www.youtube.com/watch?v=Uh2ebFW8OYM
+3. Reading and Writing to Files - [1] https://www.youtube.com/watch?v=Uh2ebFW8OYM
 
