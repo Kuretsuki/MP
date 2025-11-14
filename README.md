@@ -43,6 +43,11 @@
 - The game ends if the player falls in water or collects all mushrooms.
 - Each frame, the map is updated and displayed using load_mapp.
 
+## Unit Test Description
+
+
+## Bonus Features
+
 ## Resources
 ### Libraries and Modules
 1. [PyPI](https://pypi.org/project/termcolor/) - Used for displaying colored text in the terminal.
