@@ -44,4 +44,12 @@
 - Each frame, the map is updated and displayed using load_mapp.
 
 ## Resources
-1. [PyPI](https://pypi.org/project/termcolor/)
+### Libraries and Modules
+1. [PyPI](https://pypi.org/project/termcolor/) - Used for displaying colored text in the terminal.
+2. time - Used for short delay of movements if the user's input is a string of two or more valid characters. 
+3. os - Used for checking the files inside the directory, specifically the leaderboard file. If not in the directory, then it helps to create one.
+
+### Unit Testing
+1. Understanding unit testing and pytest in general - [1] https://www.youtube.com/watch?v=EgpLj86ZHFQ&t=1803s
+2. Temporary path used in test_mapp - [1] https://www.youtube.com/watch?v=pVYVPCiGxiE&t=177s [2] https://docs.pytest.org/en/stable/how-to/tmp_path.html#tmp-path-handling
+
