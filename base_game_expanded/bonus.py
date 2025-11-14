@@ -100,7 +100,10 @@ def load_leaderboard(map_file):
                 entry_map, name, time_taken = line.strip().split(",")
                 if entry_map == map_filename:
                     scores.append((name, float(time_taken)))
-    scores.sort(key=lambda x: x[1])
+    def get_time(score_tuple):
+        return score_tuple[1]
+        
+    scores.sort(key=get_time)
     return scores
 
 def show_leaderboard(map_file):
