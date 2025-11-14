@@ -50,6 +50,18 @@ The project contains unit tests for the following key modules:
 2. `items_functionality`: tests the `burn_trees` and `cut_tree` functions to verify that the flamethrower and axe behave correctly.
 3. `map_tracking`: tests `mushroom_counter`, `finding_L`, `mapp` functions to confirm that mushrooms are counted correctly, the player's initial location is tracked, and make sure that the text file containing the map is properly processed.
 4. `game_main_controls`: tests `handle_movement` and `handle_pickup` to check movement logic, including collisions with trees, rocks, water, and picking up items.
+
+### How to Run the Tests
+1. Install pytest (if not yet installed)
+   ```bash
+   python3 -m pip install pytest
+2. Navigate to the main project directory using the terminal
+3. Run all the tests by running:
+   ```bash
+   pytest
+4. If intended to run a specific test file, navigate to the subfolder named "tests" and run:
+   ```bash
+   pytest test_file_name.py
    
 
 ## Bonus Features
