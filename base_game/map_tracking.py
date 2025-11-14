@@ -39,7 +39,7 @@ def finding_items(tups):
     return (axe, fire)
 
 # Counting the total mushrooms in the map
-def mushroom_counter(tups): # counter ng mushrooms
+def mushroom_counter(tups): 
     r = len(tups)
     c = len(tups[0]) if r else 0
     grid = [list(row) for row in tups]
