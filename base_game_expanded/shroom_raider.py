@@ -7,21 +7,6 @@ import time
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def resolve_map_path(map_file):
-    if os.path.exists(map_file):
-        return map_file
-    
-    maps_path = os.path.join("maps", map_file)
-    if os.path.exists(maps_path):
-        return maps_path
-    
-    map_filename = os.path.basename(map_file)
-    maps_path = os.path.join("maps", map_filename)
-    if os.path.exists(maps_path):
-        return maps_path
-    
-    return map_file
-
 def main():
     parser = ArgumentParser(description="Play Shroom Raider!")
     parser.add_argument("-f", "--stage_file", default="testmap.txt", help="Path to the stage file (will check in 'maps' directory)")
@@ -29,11 +14,15 @@ def main():
     parser.add_argument("-o", "--output", default=None, help="Output file for final map state")
     args = parser.parse_args()
 
-    resolved_stage_file = resolve_map_path(args.stage_file)
-    
+    map_file = os.path.join("maps", args.stage_file)
+
+    if not os.path.exists(map_file):
+        print("Error: Map does not exist inside maps/ directory!")
+        exit(1)
+
     # AUTOMATED MODE (uses command line stage_file)
     if args.moves:
-        result = implement_game(resolved_stage_file, moves=args.moves, output_file=args.output, silent=True)
+        result = implement_game(map_file, moves=args.moves, output_file=args.output, silent=True)
         return
         
     # INTERACTIVE MODE 
@@ -68,6 +57,9 @@ def main():
             print("Invalid choice! Use 1/2/3.")
             input("Press Enter to continue...")
 
+
+if __name__ == "__main__":
+    main()
 
 if __name__ == "__main__":
     main()
