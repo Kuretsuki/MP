@@ -181,3 +181,4 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             print(colored("You fell in the water!"))
             print(f"\n{current_mush} out of {mushrooms} mushroom(s) collected\n")
         return current_loc, previous_loc, held_items, current_mush, False, pick_up_message, rock_underlying_tiles
+
