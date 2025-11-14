@@ -1,6 +1,7 @@
 from termcolor import colored
 from game_display import load_mapp, clear
 from items_functionality import burn_trees, cut_tree
+from map_tracking import initialize_rocks
 import time
 
 def handle_pickup(previous_loc, current_loc, axes_loc, fires_loc, held_items, grid):
@@ -88,14 +89,12 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             return (x, y), previous_loc, held_items, current_mush, None, pick_up_message, rock_underlying_tiles
 
         next_cell = grid[next_two_x][next_two_y]
-
-        # Get what's currently under the rock (or assume dirt if not tracked)
         rock_pos = (next_x, next_y)
+
         if rock_pos in rock_underlying_tiles:
             tile_under_rock = rock_underlying_tiles[rock_pos]
             del rock_underlying_tiles[rock_pos]
         else:
-            # If not tracked, assume it's on dirt
             tile_under_rock = "."
 
         # If rock is pushed on an empty tile
@@ -120,7 +119,7 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             grid[next_two_x][next_two_y] = "R"
             grid[next_x][next_y] = "L"
             grid[x][y] = previous_loc
-            previous_loc = tile_under_rock  # Restore what was under the rock
+            previous_loc = tile_under_rock  
             rock_underlying_tiles[(next_two_x, next_two_y)] = "_"
             current_loc = (next_x, next_y)
 
@@ -182,16 +181,3 @@ def handle_movement(grid, x, y, i, j, held_items, previous_loc, current_mush, mu
             print(colored("You fell in the water!"))
             print(f"\n{current_mush} out of {mushrooms} mushroom(s) collected\n")
         return current_loc, previous_loc, held_items, current_mush, False, pick_up_message, rock_underlying_tiles
-
-
-def initialize_rocks(grid):
-    rock_underlying_tiles = {}
-    for x in range(len(grid)):
-        for y in range(len(grid[x])):
-            if grid[x][y] == "R":
-                # Assume rocks start on dirt
-                rock_underlying_tiles[(x, y)] = "."
-    return rock_underlying_tiles
-
-
-
