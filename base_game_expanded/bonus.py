@@ -1,5 +1,4 @@
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+import os
 
 def main_menu(): 
     print("==", "\033[31mShroom \033[33mRaider!\033[0m", "==")
