@@ -143,7 +143,6 @@ def clear_current_map_leaderboard(map_file):
                 except ValueError:
                     continue
     
-    # Write back only the kept records
     with open("leaderboard.txt", "w") as f:
         for record in kept_records:
             f.write(record + "\n")
