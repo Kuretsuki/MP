@@ -1,3 +1,9 @@
+from argparse import ArgumentParser
+from user_interaction import implement_game
+from bonus import main_menu, player_setup, save_score, load_leaderboard, show_leaderboard, map_selector
+import os
+import time
+
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
