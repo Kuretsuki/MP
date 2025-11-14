@@ -49,6 +49,9 @@
 ## Bonus Features
 
 ## Resources
+### Documentation
+1. CS-11 MP Documentation - https://docs.google.com/document/d/1p-G6V5z18asHCYk3o4ojdxioIcZ_X4u6C_Yk4pe0YNU/edit?tab=t.0
+
 ### Libraries and Modules
 1. [PyPI](https://pypi.org/project/termcolor/) - Used for displaying colored text in the terminal.
 2. time - Used for short delay of movements if the user's input is a string of two or more valid characters. 
