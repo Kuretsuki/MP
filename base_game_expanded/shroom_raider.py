@@ -1,9 +1,3 @@
-from argparse import ArgumentParser
-from user_interaction import implement_game
-from bonus import main_menu, player_setup, save_score, load_leaderboard, show_leaderboard, map_selector
-import os
-import time
-
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -34,7 +28,7 @@ def main():
             name = player_setup()
             selected_map = map_selector()
             
-            input(f"\n{name}, get ready to become a Shroom Raider!\nMap: {os.path.basename(selected_map)}\nPress Enter to start the game...")
+            input(f"\n{name}, get ready to become a Shroom Raider!\nMap: {os.path.basename(selected_map)}\nPress any key to start the game...")
             start = time.time()
             result = implement_game(selected_map)
             while result == "RESET":
@@ -46,7 +40,7 @@ def main():
                 save_score(name, duration, selected_map)
             elif result == "QUIT":
                 print("You Quit!")
-            input("\nPress Enter to return to menu...")
+            input("\nPress any key to return to menu...")
         elif choice == "2":
             map_for_leaderboard = map_selector()
             show_leaderboard(map_for_leaderboard)
@@ -55,11 +49,8 @@ def main():
             break
         else:
             print("Invalid choice! Use 1/2/3.")
-            input("Press Enter to continue...")
+            input("Press any key to continue...")
 
-
-if __name__ == "__main__":
-    main()
 
 if __name__ == "__main__":
     main()
