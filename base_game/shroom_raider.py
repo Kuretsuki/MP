@@ -18,7 +18,7 @@ def main():
         "-o", "--output", 
         default=None, 
         help="Output file for final map state")
-    
+
     args = parser.parse_args()
     if args.moves:
         implement_game(args.stage_file, moves = args.moves, output_file = args.output, silent = True)
@@ -34,5 +34,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
