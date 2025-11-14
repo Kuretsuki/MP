@@ -58,7 +58,7 @@ def map_selector():
                     return os.path.join("maps", selected_map)
                 else:
                     print(f"Please enter a number between 1 and {len(map_files)}")
-                    input("Press Enter to continue...")
+                    input("Press any key to continue...")
                     clear()
                     print("=== MAP SELECTOR ===")
                     print("Available Maps:")
@@ -67,7 +67,7 @@ def map_selector():
                         print(f"{i}. {map_name}")
             else:
                 print("Please enter a valid number")
-                input("Press Enter to continue...")
+                input("Press any key to continue...")
                 clear() 
                 print("=== MAP SELECTOR ===")
                 print("Available Maps:")
@@ -77,7 +77,7 @@ def map_selector():
                 
         except (ValueError, IndexError):
             print("Invalid selection!")
-            input("Press Enter to continue...")
+            input("Press any key to continue...")
             clear()
             print("=== MAP SELECTOR ===")
             print("Available Maps:")
@@ -123,14 +123,14 @@ def show_leaderboard(map_file):
     if choice == "C":
         clear_current_map_leaderboard(map_file)
         print(f"Leaderboard for {map_filename} has been cleared!")
-        input("Press Enter to continue...")
+        input("Press any key to continue...")
 
 def clear_current_map_leaderboard(map_file):
     map_filename = os.path.basename(map_file)
     
     if not os.path.exists("leaderboard.txt"):
         return
-    
+
     kept_records = []
     with open("leaderboard.txt", "r") as f:
         for line in f:
@@ -143,6 +143,7 @@ def clear_current_map_leaderboard(map_file):
                 except ValueError:
                     continue
     
+    # Write back only the kept records
     with open("leaderboard.txt", "w") as f:
         for record in kept_records:
             f.write(record + "\n")
