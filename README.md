@@ -44,13 +44,25 @@
 - Each frame, the map is updated and displayed using load_mapp.
 
 ## Unit Test Description
-
+The project contains unit tests for the following key modules:
+1.  `game_display`: tests the  `load_mapp` function, ensuring that different tile characters are correctly displayed as their respective assigned emojis.
+2. `items_functionality`: tests the `burn_trees` and `cut_tree` functions to verify that the flamethrower and axe behave correctly.
+3. `map_tracking`: tests `mushroom_counter`, `finding_L`, `mapp` functions to confirm that mushrooms are counted correctly, the player's initial location is tracked, and make sure that the text file containing the map is properly processed.
+4. `game_main_controls`: tests `handle_movement` and `handle_pickup` to check movement logic, including collisions with trees, rocks, water, and picking up items.
+   
 
 ## Bonus Features
-1. Ability to Quit the game while playing
-2. Main Menu
-3. Leaderboard, being able to manually reset the leaderboards
+1. Main Menu
+   - Starting interface of the game
+2. Colored Terminal
+   - Displaying colored prints in the terminal
+3. Leaderboard
+   - Store the user's data and the time it took them to finish the game
+   - Ability to reset the leaderboard
 4. Map selector
+   - Ability to choose a map before starting the game
+5. Move Delay
+   - When a player inputs multiple movement command at once (e.g. "www")  small delay between each move is introduced and acts like an animation
 
 
 ## Resources
