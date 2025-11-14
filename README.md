@@ -47,6 +47,10 @@
 
 
 ## Bonus Features
+1. Ability to Quit the game while playing
+2. Main Menu
+3. Leaderboard, being able to manually reset the leaderboards
+
 
 ## Resources
 ### Documentation
