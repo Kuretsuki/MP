@@ -36,7 +36,7 @@ def map_selector():
         print("Maps directory not found! Using default: testmap.txt")
         return "testmap.txt"
     
-    map_files = [f for f in os.listdir('maps') if f.endswith('.txt') and os.path.isfile(os.path.join('maps', f))]
+    map_files = [f for f in os.listdir('maps') if f.endswith('.txt')]
     
     if not map_files:
         print("No map files found! Using default: testmap.txt")
