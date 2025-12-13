@@ -12,6 +12,7 @@ def burn_trees(grid, x, y):
 
 # Axe functionality
 def cut_tree(grid, x, y):
-    grid[x][y] = "."
+    if grid[x][y] == "T":
+        grid[x][y] = "."
     return grid
 
