@@ -20,7 +20,9 @@ def load_mapp(mapp):
     
     result = "\n".join(emoji_rows)
     print(result)
-
+    return result
+    
 # Clearing the terminal before displaying every output
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
+
