@@ -4,7 +4,7 @@ def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def main_menu(): 
-    print("""
+    print(r"""
    _____ _                                _____       _     _   
   / ____| |                              |  __ \     (_)   | |
  | (___ | |__ _ ___  ___   __   _    _   | |__) |__ _ _  __| | ___ _ __
