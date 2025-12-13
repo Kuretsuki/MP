@@ -98,10 +98,13 @@ class Interactive:
             if target_cell == "T":  # Tree interaction
                 if self.held_items == "x":
                     cut_tree(self.playing_map, next_x, next_y)
+                    self.player_loc = (next_x, next_y)
                     self.held_items = None
                     self.pick_up_message = colored("You used an axe!", "yellow")
+
                 elif self.held_items == "*":
                     burn_trees(self.playing_map, next_x, next_y)
+                    self.player_loc = (next_x, next_y)
                     self.held_items = None
                     self.pick_up_message = colored("You used a flamethrower!", "yellow")
                 else:
@@ -113,8 +116,11 @@ class Interactive:
                     return 
 
             self.playing_map[x][y] = self.previous_loc
+            self.player_loc = (next_x, next_y)
             self.previous_loc = self.playing_map[next_x][next_y]
             self.playing_map[next_x][next_y] = "L"
+            self.player_loc = (next_x, next_y)
+
             if silent is False:
                 clear()
                 load_mapp(["".join(row) for row in self.playing_map])
