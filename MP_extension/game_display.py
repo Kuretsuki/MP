@@ -15,7 +15,7 @@ TILE_EMOJIS = {
 def load_mapp(mapp): 
     emoji_rows = []
     for row in mapp:
-        emoji_row = [TILE_EMOJIS.get(tile, tile) for tile in row]
+        emoji_row = [TILE_EMOJIS[tile] if tile in TILE_EMOJIS else str(tile) for tile in row]
         emoji_rows.append("".join(emoji_row))
     
     result = "\n".join(emoji_rows)
@@ -25,4 +25,5 @@ def load_mapp(mapp):
 # Clearing the terminal before displaying every output
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
