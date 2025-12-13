@@ -37,6 +37,14 @@ def implement_game(filename = "testmap.txt",):
                 print(colored("\nInvalid move! Use W/A/S/D/P/!/Q.", "red"))
                 continue
         for m in move:
+            if m.upper() not in game.directions:
+                clear()
+                partial_res = ["".join(row) for row in game.playing_map]
+                load_mapp(partial_res)
+                print()
+                print(colored("Invalid move! Use W/A/S/D/P/!.", "red"))
+                break
+
             if m.upper() == "P":
                 game.handle_pickup()
                 clear()
