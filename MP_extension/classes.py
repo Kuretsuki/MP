@@ -66,7 +66,8 @@ class Interactive:
         "S": (1, 0),
         "D": (0, 1),
         "P": (0, 0),
-        "!": (0, 0)
+        "!": (0, 0),
+        "Q": (0, 0)
     }
         self.current_mushroom = 0
         self.pick_up_message = ""
