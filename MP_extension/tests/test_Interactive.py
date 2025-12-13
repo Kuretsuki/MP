@@ -10,7 +10,7 @@ def test_Interactive_all(tmp_path):
         "T.T.LTT.T\n"
         "T.x...*.T\n"
         "T.......T\n"
-        "T.......T\n"
+        "T..~....T\n"
         "TTTTTTTTT"
     )
 
@@ -96,16 +96,27 @@ def test_Interactive_all(tmp_path):
     game1.handle_movement("A", silent=True)
     # Player shouldn't move because tree is blocking
     assert game1.player_loc == (3, 4)
+    assert game1.previous_loc == "."
     assert game1.playing_map[3][3] == "R"
     assert game1.playing_map[3][2] == "T"
 
-    # Pushing 
-
-  
+    # Pushing rock into another rock
+    moves_to_rock = ["S", "A", "W"] 
+    for move in moves_to_rock:
+        game1.handle_movement(move, silent=True)
+    # Player shouldn't move because there are two rocks in front
+    assert game1.player_loc == (4, 3)
+    assert game1.previous_loc == "."
+    assert game1.playing_map[3][3] == "R"
+    assert game1.playing_map[2][3] == "R"
 
 
     # Falling in water (losing test)
     # Move player above water
-    game1.handle_movement("S", silent=True)  # step into water
-    assert game1.player_loc == (3, 4)        # moves into water
-    assert game1.state is False
+    moves_to_water = ["S"] * 3 
+    for move in moves_to_water:
+        game1.handle_movement(move, silent=True)
+    assert game1.player_loc == (7, 3)
+    assert game1.previous_loc == "."
+    assert game1.playing_map[7][3] == "~"
+    assert game1.state is False       # moves into water, losing condition
