@@ -10,15 +10,15 @@
 4. Install the required dependencies with:
    ```bash
    python3 -m pip install -r requirements.txt
-6. Run the main program
+5. Run the main program
    ```bash
    python3 shroom_raider.py
-7. The following are some other arguments that can be added at the end of the command:
+6. The following are some other arguments that can be added at the end of the command:
    - " -f <map.txt>", to specify which map to play
    - The following are used in automated mode"
    - " -m <"www">, to give a specific string of moves (case-insensitive)
    - " -o <output.txt>", to specify which file would the result be sent at
-8. Use the controls to play:
+7. Use the controls to play:
 - W: Move up
 - A: Move left
 - S: Move down
@@ -43,6 +43,13 @@
 - The game ends if the player falls in water or collects all mushrooms.
 - Each frame, the map is updated and displayed using load_mapp.
 
+## Code Quality and Compliance
+This project adheres to strict code quality standards to ensure readability, maintainability, and full PEP 8 compliance and strict type hinting, as required by the project extension. The following tools are used for static analysis:
+
+1.**Ruff(Linter and Formatter):** An extremely fast tool used to enforce code style (PEP 8) and linting checks across the entire codebase.
+
+2.**Pyright(Type Checker):** A dedicated, strict type checker used to statically analyze all code, ensuring the accuracy and correctness of all Python type hints.
+
 ## Unit Test Description
 ### Overview
 The project contains unit tests for the following key modules:
@@ -62,6 +69,19 @@ The project contains unit tests for the following key modules:
 4. If intended to run a specific test file, navigate to the subfolder named "tests" and run:
    ```bash
    pytest test_file_name.py
+
+### How to Add New Tests
+1. **Identify the Target File:** Determine which logic file the new test relates to (e.g., `map_tracking.py`, `game_main_controls.py`).
+2.  **Navigate to the `tests` Folder:** Go to the `tests` subdirectory.
+3.  **Create/Modify a Test File:**
+    * If the test relates to an existing module (e.g., `items_functionality`), add your new test function to the corresponding file (e.g., `test_items_functionality.py`).
+    * New test files must begin with `test_` (e.g., `test_new_feature.py`).
+4.  **Define the Test Function:** Write a function that starts with `test_` and contains several assertions.
+5.  **Run the Tests:** Execute the following command from the main project directory to ensure all existing and new tests pass:
+
+    ```bash
+    pytest
+    ```
 
 ## Bonus Features
 1. Main Menu
