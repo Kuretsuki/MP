@@ -4,9 +4,26 @@ import os
 import time
 
 def clear():
+    """
+    Clears the console screen based on the operating system.
+    
+    Uses 'cls' for Windows (nt) and 'clear' for Unix/Linux systems.
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def main():
+    """
+    The main entry point for the Shroom Raider game.
+
+    This function runs the primary application loop, handling:
+    1. Displaying the main menu.
+    2. Player setup and map selection.
+    3. Initiating the game loop and tracking play duration.
+    4. Handling game results (Win/Reset/Quit) and saving high scores.
+    5. Displaying the leaderboard for specific maps.
+    
+    The loop continues until the user selects option '3' to exit.
+    """
     while True:
         clear()
         choice = main_menu()
