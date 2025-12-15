@@ -1,16 +1,30 @@
 import os
 
 def clear():
+    """
+    Clears the console screen based on the operating system.
+    """
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def main_menu(): 
+    """
+    Displays the main game menu and prompts the user for a selection.
+
+    Prints the game title ASCII art and the available options:
+    1. Play Game
+    2. View Leaderboard
+    3. Exit
+
+    Returns:
+        str: The option selected by the user (e.g., "1", "2", "3").
+    """
     print(r"""
-   _____ _                                _____       _     _   
-  / ____| |                              |  __ \     (_)   | |
- | (___ | |__ _ ___  ___   __   _    _   | |__) |__ _ _  __| | ___ _ __
-  \___ \| '_ \ ` _ \/ _ \ / _ \| \  / |  |  _  // _` | |/ _` |/ _ \ `__|
-  ____) | | | | |  | (_) | (_) | |\/| |  | | \ \ (_| | | (_| |  __/ |
- |_____/|_| |_|_|   \___/ \___/|_|  |_|  |_|  \_\__,_|_|\__,_|\___|_|
+    _____ _                               _____       _     _    
+   / ____| |                             |  __ \     (_)   | |   
+  | (___ | |__ _ ___  ___  __  _     _   | |__) |__ _ _  __| | ___ _ __ 
+   \___ \| '_ \ ` _ \/ _ \ / _ \| \  / | |  _  // _` | |/ _` |/ _ \ `__|
+   ____) | | | | |  | (_) | (_) | |\/| | | | \ \ (_| | | (_| |  __/ |   
+  |_____/|_| |_|_|   \___/ \___/|_|  |_| |_|  \_\__,_|_|\__,_|\___|_|   
 
 
         """)
@@ -20,6 +34,14 @@ def main_menu():
     return input("Choose an option: ")
 
 def player_setup():
+    """
+    Prompts the player to enter a non-empty username.
+
+    Loop continues until a valid name is provided.
+
+    Returns:
+        str: The validated username entered by the player.
+    """
     while True:
         name = input("Enter your username: ").strip()
         if name:
@@ -29,6 +51,15 @@ def player_setup():
             print("Username cannot be empty! Please enter a name.")
 
 def map_selector():
+    """
+    Lists available map files in the 'maps' directory and handles user selection.
+
+    Scans the 'maps' folder for .txt files. If no maps or directory are found,
+    defaults to 'testmap.txt'.
+
+    Returns:
+        str: The relative path to the selected map file (e.g., 'maps/level1.txt').
+    """
     clear()
     print("=== MAP SELECTOR ===")
     
@@ -87,11 +118,32 @@ def map_selector():
 
 
 def save_score(name, time_taken, map_file):
+    """
+    Appends a player's score to the 'leaderboard.txt' file.
+
+    Args:
+        name (str): The player's username.
+        time_taken (float): The time elapsed to complete the level.
+        map_file (str): The path or name of the map played.
+    """
     map_filename = os.path.basename(map_file)
     with open("leaderboard.txt", "a") as f:
         f.write(f"{map_filename},{name},{time_taken}\n")
 
 def load_leaderboard(map_file):
+    """
+    Loads and sorts scores for a specific map from 'leaderboard.txt'.
+
+    Reads the leaderboard file, filters entries matching the provided map name,
+    and sorts them by time taken (ascending).
+
+    Args:
+        map_file (str): The path or name of the map to load scores for.
+
+    Returns:
+        list[tuple]: A list of tuples where each tuple contains (name, time_taken).
+        The list is sorted with the fastest times first.
+    """
     scores = []
     map_filename = os.path.basename(map_file)
     if os.path.exists("leaderboard.txt"):
@@ -107,6 +159,15 @@ def load_leaderboard(map_file):
     return scores
 
 def show_leaderboard(map_file):
+    """
+    Displays the top 10 scores for the selected map and handles clearing options.
+
+    Prints the leaderboard to the console. Also provides an option for the user
+    to clear the leaderboard for the current map.
+
+    Args:
+        map_file (str): The path or name of the map to display scores for.
+    """
     clear()
     map_filename = os.path.basename(map_file)
     scores = load_leaderboard(map_file)
@@ -129,6 +190,15 @@ def show_leaderboard(map_file):
         input("Press any key to continue...")
 
 def clear_current_map_leaderboard(map_file):
+    """
+    Removes all scores associated with a specific map from 'leaderboard.txt'.
+
+    Reads all records, filters out those belonging to the specified map,
+    and rewrites the file with the remaining records.
+
+    Args:
+        map_file (str): The path or name of the map to clear scores for.
+    """
     map_filename = os.path.basename(map_file)
     
     if not os.path.exists("leaderboard.txt"):
