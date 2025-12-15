@@ -2,9 +2,24 @@ from classes import Interactive
 from game_display import load_mapp, clear, TILE_EMOJIS
 from termcolor import colored
 
+def implement_game(filename="testmap.txt"):
+    """
+    Runs the main game loop for a single level/map.
 
+    Initializes the game state based on the provided map file, handles user 
+    input for movement and actions, updates the display, and tracks the 
+    win/loss condition.
 
-def implement_game(filename = "testmap.txt",):
+    Args:
+        filename (str, optional): The path to the map file to load. Defaults to "testmap.txt".
+
+    Returns:
+        bool or str: 
+            - True if the player wins (collects all mushrooms).
+            - False if the player loses (falls in water).
+            - "RESET" if the player chooses to restart the level.
+            - "QUIT" if the player chooses to exit to the main menu.
+    """
     game = Interactive(filename)
 
     clear()
@@ -61,10 +76,3 @@ def implement_game(filename = "testmap.txt",):
 
         if game.state in (True, False):
             return game.state
-
-
-            
-
-
-
-
