@@ -11,7 +11,7 @@ TILE_EMOJIS = {
     "*": "🔥",  # flamethrower
     "L": "🧑",  # Laro Craft (player)
 }
-# Displaying the map as emojis
+
 def load_mapp(mapp): 
      """
     Gets the copy of the grid that is in text form and converts it to emojis.
@@ -31,9 +31,10 @@ def load_mapp(mapp):
     print(result)
     return result
     
-# Clearing the terminal before displaying every output
 def clear():
+    # Clearing the terminal before displaying every output
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 
 
