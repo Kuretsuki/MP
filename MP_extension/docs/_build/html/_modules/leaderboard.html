@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>leaderboard &mdash; CS11 - Shroom Raider Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CS11 - Shroom Raider Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/modules.html">MP_extension</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CS11 - Shroom Raider Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">leaderboard</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for leaderboard</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<div class="viewcode-block" id="clear">
+<a class="viewcode-back" href="../source/leaderboard.html#leaderboard.clear">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clears the console screen based on the operating system.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;cls&#39;</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span> <span class="k">else</span> <span class="s1">&#39;clear&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main_menu">
+<a class="viewcode-back" href="../source/leaderboard.html#leaderboard.main_menu">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main_menu</span><span class="p">():</span> 
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the main game menu and prompts the user for a selection.</span>
+
+<span class="sd">    Prints the game title ASCII art and the available options:</span>
+<span class="sd">    1. Play Game</span>
+<span class="sd">    2. View Leaderboard</span>
+<span class="sd">    3. Exit</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The option selected by the user (e.g., &quot;1&quot;, &quot;2&quot;, &quot;3&quot;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    _____ _                               _____       _     _    </span>
+<span class="s2">   / ____| |                             |  __ \     (_)   | |   </span>
+<span class="s2">  | (___ | |__ _ ___  ___  __  _     _   | |__) |__ _ _  __| | ___ _ __ </span>
+<span class="s2">   \___ \| &#39;_ \ ` _ \/ _ \ / _ \| \  / | |  _  // _` | |/ _` |/ _ \ `__|</span>
+<span class="s2">   ____) | | | | |  | (_) | (_) | |\/| | | | \ \ (_| | | (_| |  __/ |   </span>
+<span class="s2">  |_____/|_| |_|_|   \___/ \___/|_|  |_| |_|  \_\__,_|_|\__,_|\___|_|   </span>
+
+
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press 1 to Play Game&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press 2 to View Leaderboard&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press 3 to Exit&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Choose an option: &quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="player_setup">
+<a class="viewcode-back" href="../source/leaderboard.html#leaderboard.player_setup">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">player_setup</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prompts the player to enter a non-empty username.</span>
+
+<span class="sd">    Loop continues until a valid name is provided.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The validated username entered by the player.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter your username: &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clear</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Username cannot be empty! Please enter a name.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="map_selector">
+<a class="viewcode-back" href="../source/leaderboard.html#leaderboard.map_selector">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">map_selector</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lists available map files in the &#39;maps&#39; directory and handles user selection.</span>
+
+<span class="sd">    Scans the &#39;maps&#39; folder for .txt files. If no maps or directory are found,</span>
+<span class="sd">    defaults to &#39;testmap.txt&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The relative path to the selected map file (e.g., &#39;maps/level1.txt&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clear</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== MAP SELECTOR ===&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;maps&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maps directory not found! Using default: testmap.txt&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;testmap.txt&quot;</span>
+    
+    <span class="n">map_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;maps&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">)])</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">map_files</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No map files found! Using default: testmap.txt&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;testmap.txt&quot;</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available Maps:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">map_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">map_files</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">map_name</span> <span class="o">=</span> <span class="n">map_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">map_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Select a map (1-</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">map_files</span><span class="p">)</span><span class="si">}</span><span class="s2">): &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            
+            <span class="k">if</span> <span class="n">choice</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                <span class="n">choice_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+                <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">choice_num</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">map_files</span><span class="p">):</span>
+                    <span class="n">selected_map</span> <span class="o">=</span> <span class="n">map_files</span><span class="p">[</span><span class="n">choice_num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;maps&quot;</span><span class="p">,</span> <span class="n">selected_map</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Please enter a number between 1 and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">map_files</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Press any key to continue...&quot;</span><span class="p">)</span>
+                    <span class="n">clear</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== MAP SELECTOR ===&quot;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available Maps:&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">map_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">map_files</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">map_name</span> <span class="o">=</span> <span class="n">map_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">map_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please enter a valid number&quot;</span><span class="p">)</span>
+                <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Press any key to continue...&quot;</span><span class="p">)</span>
+                <span class="n">clear</span><span class="p">()</span> 
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== MAP SELECTOR ===&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available Maps:&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">map_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">map_files</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">map_name</span> <span class="o">=</span> <span class="n">map_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">map_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid selection!&quot;</span><span class="p">)</span>
+            <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Press any key to continue...&quot;</span><span class="p">)</span>
+            <span class="n">clear</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== MAP SELECTOR ===&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available Maps:&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">map_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">map_files</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">map_name</span> <span class="o">=</span> <span class="n">map_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">map_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="save_score">
+<a class="viewcode-back" href="../source/leaderboard.html#leaderboard.save_score">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_score</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">time_taken</span><span class="p">,</span> <span class="n">map_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Appends a player&#39;s score to the &#39;leaderboard.txt&#39; file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): The player&#39;s username.</span>
+<span class="sd">        time_taken (float): The time elapsed to complete the level.</span>
+<span class="sd">        map_file (str): The path or name of the map played.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">map_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">map_file</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;leaderboard.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">map_filename</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">time_taken</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_leaderboard">
+<a class="viewcode-back" href="../source/leaderboard.html#leaderboard.load_leaderboard">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_leaderboard</span><span class="p">(</span><span class="n">map_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads and sorts scores for a specific map from &#39;leaderboard.txt&#39;.</span>
+
+<span class="sd">    Reads the leaderboard file, filters entries matching the provided map name,</span>
+<span class="sd">    and sorts them by time taken (ascending).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        map_file (str): The path or name of the map to load scores for.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[tuple]: A list of tuples where each tuple contains (name, time_taken).</span>
+<span class="sd">        The list is sorted with the fastest times first.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">map_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">map_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;leaderboard.txt&quot;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;leaderboard.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">entry_map</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">time_taken</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">entry_map</span> <span class="o">==</span> <span class="n">map_filename</span><span class="p">:</span>
+                    <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">time_taken</span><span class="p">)))</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_time</span><span class="p">(</span><span class="n">score_tuple</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">score_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        
+    <span class="n">scores</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">get_time</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">scores</span></div>
+
+
+<div class="viewcode-block" id="show_leaderboard">
+<a class="viewcode-back" href="../source/leaderboard.html#leaderboard.show_leaderboard">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_leaderboard</span><span class="p">(</span><span class="n">map_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the top 10 scores for the selected map and handles clearing options.</span>
+
+<span class="sd">    Prints the leaderboard to the console. Also provides an option for the user</span>
+<span class="sd">    to clear the leaderboard for the current map.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        map_file (str): The path or name of the map to display scores for.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clear</span><span class="p">()</span>
+    <span class="n">map_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">map_file</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">load_leaderboard</span><span class="p">(</span><span class="n">map_file</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== LEADERBOARDS: </span><span class="si">{</span><span class="n">map_filename</span><span class="si">}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">scores</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No records yet!&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">scores</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Options:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[C] Clear Leaderboards for THIS MAP&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[Enter] Return to Menu&quot;</span><span class="p">)</span>
+    
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Choose an option: &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
+        <span class="n">clear_current_map_leaderboard</span><span class="p">(</span><span class="n">map_file</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Leaderboard for </span><span class="si">{</span><span class="n">map_filename</span><span class="si">}</span><span class="s2"> has been cleared!&quot;</span><span class="p">)</span>
+        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Press any key to continue...&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="clear_current_map_leaderboard">
+<a class="viewcode-back" href="../source/leaderboard.html#leaderboard.clear_current_map_leaderboard">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">clear_current_map_leaderboard</span><span class="p">(</span><span class="n">map_file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Removes all scores associated with a specific map from &#39;leaderboard.txt&#39;.</span>
+
+<span class="sd">    Reads all records, filters out those belonging to the specified map,</span>
+<span class="sd">    and rewrites the file with the remaining records.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        map_file (str): The path or name of the map to clear scores for.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">map_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">map_file</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;leaderboard.txt&quot;</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="n">kept_records</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;leaderboard.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">entry_map</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">time_taken</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">entry_map</span> <span class="o">!=</span> <span class="n">map_filename</span><span class="p">:</span>
+                        <span class="n">kept_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+    
+    <span class="c1"># Write back only the kept records</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;leaderboard.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">kept_records</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">record</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Tabo, Aldrich / Vega, Renzo Jose.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>leaderboard module &mdash; CS11 - Shroom Raider Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="new_user_interaction module" href="new_user_interaction.html" />
+    <link rel="prev" title="items_functionality module" href="items_functionality.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CS11 - Shroom Raider Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">MP_extension</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="classes.html">classes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game_display.html">game_display module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="items_functionality.html">items_functionality module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">leaderboard module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#leaderboard.clear"><code class="docutils literal notranslate"><span class="pre">clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leaderboard.clear_current_map_leaderboard"><code class="docutils literal notranslate"><span class="pre">clear_current_map_leaderboard()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leaderboard.load_leaderboard"><code class="docutils literal notranslate"><span class="pre">load_leaderboard()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leaderboard.main_menu"><code class="docutils literal notranslate"><span class="pre">main_menu()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leaderboard.map_selector"><code class="docutils literal notranslate"><span class="pre">map_selector()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leaderboard.player_setup"><code class="docutils literal notranslate"><span class="pre">player_setup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leaderboard.save_score"><code class="docutils literal notranslate"><span class="pre">save_score()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leaderboard.show_leaderboard"><code class="docutils literal notranslate"><span class="pre">show_leaderboard()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="new_user_interaction.html">new_user_interaction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shroom_raider.html">shroom_raider module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CS11 - Shroom Raider Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">MP_extension</a></li>
+      <li class="breadcrumb-item active">leaderboard module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/leaderboard.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-leaderboard">
+<span id="leaderboard-module"></span><h1>leaderboard module<a class="headerlink" href="#module-leaderboard" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="leaderboard.clear">
+<span class="sig-prename descclassname"><span class="pre">leaderboard.</span></span><span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leaderboard.html#clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#leaderboard.clear" title="Link to this definition"></a></dt>
+<dd><p>Clears the console screen based on the operating system.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaderboard.clear_current_map_leaderboard">
+<span class="sig-prename descclassname"><span class="pre">leaderboard.</span></span><span class="sig-name descname"><span class="pre">clear_current_map_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leaderboard.html#clear_current_map_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#leaderboard.clear_current_map_leaderboard" title="Link to this definition"></a></dt>
+<dd><p>Removes all scores associated with a specific map from ‘leaderboard.txt’.</p>
+<p>Reads all records, filters out those belonging to the specified map,
+and rewrites the file with the remaining records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>map_file</strong> (<em>str</em>) – The path or name of the map to clear scores for.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaderboard.load_leaderboard">
+<span class="sig-prename descclassname"><span class="pre">leaderboard.</span></span><span class="sig-name descname"><span class="pre">load_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leaderboard.html#load_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#leaderboard.load_leaderboard" title="Link to this definition"></a></dt>
+<dd><p>Loads and sorts scores for a specific map from ‘leaderboard.txt’.</p>
+<p>Reads the leaderboard file, filters entries matching the provided map name,
+and sorts them by time taken (ascending).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>map_file</strong> (<em>str</em>) – The path or name of the map to load scores for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of tuples where each tuple contains (name, time_taken).
+The list is sorted with the fastest times first.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[tuple]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaderboard.main_menu">
+<span class="sig-prename descclassname"><span class="pre">leaderboard.</span></span><span class="sig-name descname"><span class="pre">main_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leaderboard.html#main_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#leaderboard.main_menu" title="Link to this definition"></a></dt>
+<dd><p>Displays the main game menu and prompts the user for a selection.</p>
+<p>Prints the game title ASCII art and the available options:
+1. Play Game
+2. View Leaderboard
+3. Exit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The option selected by the user (e.g., “1”, “2”, “3”).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaderboard.map_selector">
+<span class="sig-prename descclassname"><span class="pre">leaderboard.</span></span><span class="sig-name descname"><span class="pre">map_selector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leaderboard.html#map_selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#leaderboard.map_selector" title="Link to this definition"></a></dt>
+<dd><p>Lists available map files in the ‘maps’ directory and handles user selection.</p>
+<p>Scans the ‘maps’ folder for .txt files. If no maps or directory are found,
+defaults to ‘testmap.txt’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The relative path to the selected map file (e.g., ‘maps/level1.txt’).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaderboard.player_setup">
+<span class="sig-prename descclassname"><span class="pre">leaderboard.</span></span><span class="sig-name descname"><span class="pre">player_setup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leaderboard.html#player_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#leaderboard.player_setup" title="Link to this definition"></a></dt>
+<dd><p>Prompts the player to enter a non-empty username.</p>
+<p>Loop continues until a valid name is provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The validated username entered by the player.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaderboard.save_score">
+<span class="sig-prename descclassname"><span class="pre">leaderboard.</span></span><span class="sig-name descname"><span class="pre">save_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_taken</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">map_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leaderboard.html#save_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#leaderboard.save_score" title="Link to this definition"></a></dt>
+<dd><p>Appends a player’s score to the ‘leaderboard.txt’ file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The player’s username.</p></li>
+<li><p><strong>time_taken</strong> (<em>float</em>) – The time elapsed to complete the level.</p></li>
+<li><p><strong>map_file</strong> (<em>str</em>) – The path or name of the map played.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="leaderboard.show_leaderboard">
+<span class="sig-prename descclassname"><span class="pre">leaderboard.</span></span><span class="sig-name descname"><span class="pre">show_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/leaderboard.html#show_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#leaderboard.show_leaderboard" title="Link to this definition"></a></dt>
+<dd><p>Displays the top 10 scores for the selected map and handles clearing options.</p>
+<p>Prints the leaderboard to the console. Also provides an option for the user
+to clear the leaderboard for the current map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>map_file</strong> (<em>str</em>) – The path or name of the map to display scores for.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="items_functionality.html" class="btn btn-neutral float-left" title="items_functionality module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="new_user_interaction.html" class="btn btn-neutral float-right" title="new_user_interaction module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Tabo, Aldrich / Vega, Renzo Jose.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>classes &mdash; CS11 - Shroom Raider Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CS11 - Shroom Raider Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/modules.html">MP_extension</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CS11 - Shroom Raider Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">classes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for classes</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">termcolor</span><span class="w"> </span><span class="kn">import</span> <span class="n">colored</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">items_functionality</span><span class="w"> </span><span class="kn">import</span> <span class="n">burn_trees</span><span class="p">,</span> <span class="n">cut_tree</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">game_display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear</span><span class="p">,</span> <span class="n">load_mapp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<div class="viewcode-block" id="Map">
+<a class="viewcode-back" href="../source/classes.html#classes.Map">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Map</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a game map file handler.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1">#: The path to the text file containing the map layout.</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span>
+
+<div class="viewcode-block" id="Map.get_map">
+<a class="viewcode-back" href="../source/classes.html#classes.Map.get_map">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the map file and converts it into a grid (2D list).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[list[str]]: A 2D list representing the game grid, where each</span>
+<span class="sd">            element is a single character string representing a tile.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the specified filename does not exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: Map file &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s2">&#39; not found!&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">grid</span></div>
+</div>
+
+
+<div class="viewcode-block" id="Locations">
+<a class="viewcode-back" href="../source/classes.html#classes.Locations">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Locations</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the initialization and scanning of entities within the map.</span>
+
+<span class="sd">    This class is responsible for parsing the raw map grid to find the</span>
+<span class="sd">    starting positions of the player, items, and objectives.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str): The path to the map file.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        items_loc (tuple): A tuple containing two lists:</span>
+<span class="sd">            - index 0: list of coordinates for axes (&#39;x&#39;).</span>
+<span class="sd">            - index 1: list of coordinates for flamethrowers (&#39;*&#39;).</span>
+<span class="sd">        mushroom_count (int): The total number of mushrooms (&#39;+&#39;) on the map.</span>
+<span class="sd">        player_loc (tuple or None): The (row, col) coordinates of the player (&#39;L&#39;).</span>
+<span class="sd">        playing_map (list[list[str]]): The mutable 2D grid of the game map.</span>
+<span class="sd">        r (int): The number of rows in the map.</span>
+<span class="sd">        c (int): The number of columns in the map.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items_loc</span> <span class="o">=</span> <span class="p">([],[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mushroom_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        
+<div class="viewcode-block" id="Locations.find_L">
+<a class="viewcode-back" href="../source/classes.html#classes.Locations.find_L">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_L</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scans the map to find the player&#39;s starting position (&#39;L&#39;).</span>
+<span class="sd">        Updates self.player_loc.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Locations.find_items">
+<a class="viewcode-back" href="../source/classes.html#classes.Locations.find_items">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scans the map to find item locations.</span>
+<span class="sd">        Updates self.items_loc with coordinates of axes (&#39;x&#39;) and flamethrowers (&#39;*&#39;).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">items_loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">items_loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Locations.count_mushroom">
+<a class="viewcode-back" href="../source/classes.html#classes.Locations.count_mushroom">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">count_mushroom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Scans the map to count the total number of mushrooms (&#39;+&#39;).</span>
+<span class="sd">        Updates self.mushroom_count.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">i</span><span class="p">])):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;+&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mushroom_count</span> <span class="o">+=</span> <span class="mi">1</span></div>
+</div>
+
+
+<div class="viewcode-block" id="Interactive">
+<a class="viewcode-back" href="../source/classes.html#classes.Interactive">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Interactive</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manages the core game loop, logic, and state updates.</span>
+
+<span class="sd">    This class handles player movement, collisions, item usage, rock pushing,</span>
+<span class="sd">    and win/loss conditions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str): The path to the map file to load.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        playing_map (list[list[str]]): The current state of the game grid.</span>
+<span class="sd">        player_loc (tuple): The current (x, y) coordinates of the player.</span>
+<span class="sd">        axes_loc (list): List of coordinates where axes are located.</span>
+<span class="sd">        fires_loc (list): List of coordinates where flamethrowers are located.</span>
+<span class="sd">        mushroom_count (int): Total mushrooms required to win.</span>
+<span class="sd">        current_mushroom (int): Number of mushrooms collected so far.</span>
+<span class="sd">        held_items (str or None): The item currently held by the player (&#39;x&#39;, &#39;*&#39;, or None).</span>
+<span class="sd">        state (bool or None): The game state. True = Win, False = Loss, None = Playing.</span>
+<span class="sd">        pick_up_message (str): A message string displayed to the user after actions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">Locations</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">location</span><span class="o">.</span><span class="n">find_L</span><span class="p">()</span>
+        <span class="n">location</span><span class="o">.</span><span class="n">find_items</span><span class="p">()</span>
+        <span class="n">location</span><span class="o">.</span><span class="n">count_mushroom</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">playing_map</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">player_loc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axes_loc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fires_loc</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">items_loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">items_loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mushroom_count</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">mushroom_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directions</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;W&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s2">&quot;P&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;!&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;Q&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_mushroom</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pick_up_message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">held_items</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rock_underlying_tiles</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Interactive.handle_movement">
+<a class="viewcode-back" href="../source/classes.html#classes.Interactive.handle_movement">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_movement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">move</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">delay</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">multi_move</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Processes a single movement command from the player.</span>
+
+<span class="sd">        This method calculates the next position, checks for collisions (walls, </span>
+<span class="sd">        water, rocks, trees), handles interactions (pushing rocks, cutting trees),</span>
+<span class="sd">        and updates the game map and visual display.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            move (str): The direction key (&#39;W&#39;, &#39;A&#39;, &#39;S&#39;, &#39;D&#39;, etc.).</span>
+<span class="sd">            silent (bool, optional): If True, suppresses console output (used for testing). Defaults to False.</span>
+<span class="sd">            delay (bool, optional): If True, adds a small time delay for animation effects. Defaults to False.</span>
+<span class="sd">            multi_move (bool, optional): Indicates if the move is part of a sequence. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None: This method modifies the class attributes in-place.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">directions</span><span class="p">[</span><span class="n">move</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+        <span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">j</span>
+        <span class="n">delay</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Checking if movement is within map bounds</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">next_x</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">next_y</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_x</span><span class="p">])):</span>
+            <span class="n">partial_res</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">clear</span><span class="p">()</span>
+                <span class="n">load_mapp</span><span class="p">(</span><span class="n">partial_res</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">You cannot move outside the map!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+            <span class="k">return</span> 
+
+        <span class="n">target_cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_x</span><span class="p">][</span><span class="n">next_y</span><span class="p">]</span>
+
+        <span class="c1"># Moving on a valid tile</span>
+        <span class="k">if</span> <span class="n">target_cell</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">target_cell</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span>  <span class="c1"># Tree interaction</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">held_items</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+                    <span class="n">cut_tree</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">,</span> <span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">held_items</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pick_up_message</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s2">&quot;You used an axe!&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">held_items</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span>
+                    <span class="n">burn_trees</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">,</span> <span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">held_items</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pick_up_message</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s2">&quot;You used a flamethrower!&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">partial_res</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                        <span class="n">clear</span><span class="p">()</span>
+                        <span class="n">load_mapp</span><span class="p">(</span><span class="n">partial_res</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There&#39;s a tree blocking your path!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+                    <span class="k">return</span> 
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_x</span><span class="p">][</span><span class="n">next_y</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_x</span><span class="p">][</span><span class="n">next_y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">clear</span><span class="p">()</span>
+                <span class="n">load_mapp</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">delay</span> <span class="ow">and</span> <span class="n">multi_move</span><span class="p">:</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            
+        <span class="c1"># Pushing rocks</span>
+        <span class="k">elif</span> <span class="n">target_cell</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+            <span class="n">next_two_x</span><span class="p">,</span> <span class="n">next_two_y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">j</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">next_two_x</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">)</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">next_two_y</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_two_x</span><span class="p">])):</span>
+                <span class="n">partial_res</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="n">clear</span><span class="p">()</span>
+                    <span class="n">load_mapp</span><span class="p">(</span><span class="n">partial_res</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">You can&#39;t push the rock off the map!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+                <span class="k">return</span> 
+
+            <span class="n">next_cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_two_x</span><span class="p">][</span><span class="n">next_two_y</span><span class="p">]</span>
+            <span class="n">rock_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">rock_pos</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rock_underlying_tiles</span><span class="p">:</span>
+                <span class="n">tile_under_rock</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rock_underlying_tiles</span><span class="p">[</span><span class="n">rock_pos</span><span class="p">]</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">rock_underlying_tiles</span><span class="p">[</span><span class="n">rock_pos</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tile_under_rock</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+
+            <span class="c1"># If rock is pushed on an empty tile</span>
+            <span class="k">if</span> <span class="n">next_cell</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_two_x</span><span class="p">][</span><span class="n">next_two_y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_x</span><span class="p">][</span><span class="n">next_y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="o">=</span> <span class="n">tile_under_rock</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rock_underlying_tiles</span><span class="p">[(</span><span class="n">next_two_x</span><span class="p">,</span> <span class="n">next_two_y</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+
+            <span class="c1"># If rock is pushed in the water</span>
+            <span class="k">elif</span> <span class="n">next_cell</span> <span class="o">==</span> <span class="s2">&quot;~&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_two_x</span><span class="p">][</span><span class="n">next_two_y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_x</span><span class="p">][</span><span class="n">next_y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="o">=</span> <span class="n">tile_under_rock</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+
+            <span class="c1"># If rock is pushed on a paved-tile</span>
+            <span class="k">elif</span> <span class="n">next_cell</span> <span class="o">==</span> <span class="s2">&quot;_&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_two_x</span><span class="p">][</span><span class="n">next_two_y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_x</span><span class="p">][</span><span class="n">next_y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="o">=</span> <span class="n">tile_under_rock</span>  
+                <span class="bp">self</span><span class="o">.</span><span class="n">rock_underlying_tiles</span><span class="p">[(</span><span class="n">next_two_x</span><span class="p">,</span> <span class="n">next_two_y</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+
+            <span class="c1"># If rock is pushed on a tree or mushroom</span>
+            <span class="k">elif</span> <span class="n">next_cell</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">]:</span>
+                <span class="n">partial_res</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">]</span>
+                <span class="n">obstacle</span> <span class="o">=</span> <span class="s2">&quot;tree&quot;</span> <span class="k">if</span> <span class="n">next_cell</span> <span class="o">==</span> <span class="s2">&quot;T&quot;</span> <span class="k">else</span> <span class="s2">&quot;mushroom&quot;</span>
+                <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="n">clear</span><span class="p">()</span>
+                    <span class="n">load_mapp</span><span class="p">(</span><span class="n">partial_res</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">There&#39;s a </span><span class="si">{</span><span class="n">obstacle</span><span class="si">}</span><span class="s2"> blocking your path!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+                <span class="k">return</span> 
+
+            <span class="c1"># If two or more rock is pushed </span>
+            <span class="k">elif</span> <span class="n">next_cell</span> <span class="o">==</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span>
+                <span class="n">partial_res</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="n">clear</span><span class="p">()</span>
+                    <span class="n">load_mapp</span><span class="p">(</span><span class="n">partial_res</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">You&#39;re not strong enough to push multiple rocks!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+                <span class="k">return</span> 
+
+            <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">clear</span><span class="p">()</span>
+                <span class="n">load_mapp</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">delay</span> <span class="ow">and</span> <span class="n">multi_move</span><span class="p">:</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span>
+            <span class="k">return</span> 
+
+        <span class="c1"># Collecting mushrooms</span>
+        <span class="k">elif</span> <span class="n">target_cell</span> <span class="o">==</span> <span class="s2">&quot;+&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_mushroom</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">next_x</span><span class="p">][</span><span class="n">next_y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">clear</span><span class="p">()</span>
+                <span class="n">load_mapp</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">])</span>
+
+            <span class="c1"># Collected all mushrooms - Winning state</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_mushroom</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">mushroom_count</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Congratulations!&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">))</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_mushroom</span><span class="si">}</span><span class="s2"> out of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mushroom_count</span><span class="si">}</span><span class="s2"> mushroom(s) collected</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">return</span> 
+
+        <span class="c1"># Falling in the water - Losing State</span>
+        <span class="k">elif</span> <span class="n">target_cell</span> <span class="o">==</span> <span class="s2">&quot;~&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="o">=</span> <span class="p">(</span><span class="n">next_x</span><span class="p">,</span> <span class="n">next_y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">clear</span><span class="p">()</span>
+                <span class="n">load_mapp</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">])</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Game Over!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;You fell in the water!&quot;</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_mushroom</span><span class="si">}</span><span class="s2"> out of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mushroom_count</span><span class="si">}</span><span class="s2"> mushroom(s) collected</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Interactive.handle_pickup">
+<a class="viewcode-back" href="../source/classes.html#classes.Interactive.handle_pickup">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">handle_pickup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempts to pick up an item from the tile the player is currently standing on.</span>
+
+<span class="sd">        If the player is on a tile that contained an item (&#39;x&#39; or &#39;*&#39;) before they</span>
+<span class="sd">        stepped on it, and they are not currently holding an item, this method</span>
+<span class="sd">        equips the item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">held_items</span><span class="p">:</span>
+        <span class="c1"># Pick up available item</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes_loc</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">axes_loc</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">held_items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pick_up_message</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s2">&quot;You picked up an axe!&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fires_loc</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fires_loc</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_loc</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">held_items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pick_up_message</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s2">&quot;You picked up a flamethrower!&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_loc</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pick_up_message</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s2">&quot;There is no item to be picked up!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pick_up_message</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s2">&quot;You are already holding an item!&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">playing_map</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+        <span class="k">return</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Tabo, Aldrich / Vega, Renzo Jose.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

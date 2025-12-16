@@ -1,0 +1,178 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>items_functionality module &mdash; CS11 - Shroom Raider Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="leaderboard module" href="leaderboard.html" />
+    <link rel="prev" title="game_display module" href="game_display.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CS11 - Shroom Raider Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">MP_extension</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="classes.html">classes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game_display.html">game_display module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">items_functionality module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#items_functionality.burn_trees"><code class="docutils literal notranslate"><span class="pre">burn_trees()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#items_functionality.cut_tree"><code class="docutils literal notranslate"><span class="pre">cut_tree()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="leaderboard.html">leaderboard module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new_user_interaction.html">new_user_interaction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shroom_raider.html">shroom_raider module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CS11 - Shroom Raider Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">MP_extension</a></li>
+      <li class="breadcrumb-item active">items_functionality module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/items_functionality.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-items_functionality">
+<span id="items-functionality-module"></span><h1>items_functionality module<a class="headerlink" href="#module-items_functionality" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="items_functionality.burn_trees">
+<span class="sig-prename descclassname"><span class="pre">items_functionality.</span></span><span class="sig-name descname"><span class="pre">burn_trees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/items_functionality.html#burn_trees"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#items_functionality.burn_trees" title="Link to this definition"></a></dt>
+<dd><p>Activates the flamethrower functionality to burn trees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<em>list</em>) – The current game map grid</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – The x coordinate of the tree that will be burned</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – The y coordinate of the tree that will be burned</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Process:</dt><dd><p>The function loops through all the trees that is found in
+orthogonal direction until it cannot find one.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The updated grid with burned trees removed</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="items_functionality.cut_tree">
+<span class="sig-prename descclassname"><span class="pre">items_functionality.</span></span><span class="sig-name descname"><span class="pre">cut_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/items_functionality.html#cut_tree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#items_functionality.cut_tree" title="Link to this definition"></a></dt>
+<dd><p>Activates the axe functionality to cut trees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<em>list</em>) – The current game map grid</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – The x coordinate of the tree that will be cut</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – The y coordinate of the tree that will be cut</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Process:</dt><dd><p>Assigns the grid[x][y] to be a “.” which makes that element
+of the grid to be walkable.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The updated grid with the removed tree.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="game_display.html" class="btn btn-neutral float-left" title="game_display module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="leaderboard.html" class="btn btn-neutral float-right" title="leaderboard module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Tabo, Aldrich / Vega, Renzo Jose.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
